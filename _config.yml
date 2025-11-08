@@ -9,7 +9,7 @@ plugins:
 #-------------------------------
 # General Site Settings
 title: Charlie H. Kim
-description: "Hi I'm Charlie and am passionate about efficiently employing business intelligence/data science tools and techniques to produced real world value. My portfolio focuses on illustrative samples of interesting projects I've undertaken over the years. Please visit my GitHub & LinkedIn pages (or download my Resume) by using the links below!"
+description: "Hi I'm Charlie and am passionate about efficiently employing business intelligence/data science tools and techniques to have real-world impact to bottom lines. My portfolio focuses on illustrative samples of interesting projects I've undertaken over the years. Please visit my GitHub & LinkedIn pages (or download my Resume) by using the links below!"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -22,8 +22,8 @@ avatar_image: /img/Charlie_Kim_photo_outdoor.JPG
 
 #-------------------------------
 # Contact links
-linkedln: "https://linkedln.com/in/charlie-h-kim" # Add your linkedln handle
-github: "https://github.com/stetson06/portfolio"  # Add your github handle
+linkedln: "https://linkedln.com/in/charlie-h-kim/" # Add your linkedln handle
+github: "https://stetson06.github.io"  # Add your github handle
 
 paginate: 6
 paginate_path: "/page/:num"
@@ -51,6 +51,7 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 
 
 
