@@ -22,7 +22,7 @@ avatar_image: /img/Charlie_Kim_photo_outdoor.jpg
 
 #-------------------------------
 # Contact links
-linkedln: "https://linkedln.com/in/charlie-h-kim" # Add your linkedln handle
+linkedln: "https://linkedin.com/in/charlie-h-kim" # Add your linkedln handle
 github: "https://stetson06.github.io"  # Add your github handle
 
 paginate: 6
@@ -51,6 +51,7 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 
 
 
