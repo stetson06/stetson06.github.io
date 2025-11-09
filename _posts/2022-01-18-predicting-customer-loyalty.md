@@ -16,12 +16,12 @@ Our client, a grocery retailer, hired a market research consultancy to append ma
     - [Growth/Next Steps](#overview-growth)
     - [Key Definition](#overview-definition)
 - [01. Data Overview](#data-overview)
-- [02. Modelling Overview](#modelling-overview)
+- [02. Modeling Overview](#modeling-overview)
 - [03. Linear Regression](#linreg-title)
 - [04. Decision Tree](#regtree-title)
 - [05. Random Forest](#rf-title)
-- [06. Modelling Summary](#modelling-summary)
-- [07. Predicting Missing Loyalty Scores](#modelling-predictions)
+- [06. Modeling Summary](#modeling-summary)
+- [07. Predicting Missing Loyalty Scores](#modeling-predictions)
 - [08. Growth & Next Steps](#growth-next-steps)
 
 ___
@@ -1165,3 +1165,4 @@ We could even look to tune the hyperparameters of the Random Forest, notably reg
 
 
 From a data point of view, further variables could be collected, and further feature engineering could be undertaken to ensure that we have as much useful information available for predicting customer loyalty.
+
