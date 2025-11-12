@@ -336,7 +336,7 @@ The below image contains two plots, the first showing the epoch by epoch **Loss*
 <br>
 There are two key learnings from above plots. The first is that, with this baseline architecture and the parameters we set for training, we are reaching our best performance in around 10-20 epochs - after that, not much improvement is seen. This isn't to say that 50 epochs is wrong, especially if we change our network - but it is interesting to note at this point.
 
-The second thing to notice is *very important* and that is the significant gap between orange and blue lines on the plot - in other words, between our validation performance and our training performance.
+The second thing to notice is *very important* and that is the significant gap between orange and blue lines on the plot - in other words, between our validation performance and our training performance, respectively.
 
 This gap indicates over-fitting.
 
@@ -353,7 +353,7 @@ Above, we assessed our models performance on both the training set and the valid
 
 Here, we will get a view of how well our network performs when predicting on data that was *no part* of the training process whatsoever - i.e., our test set.
 
-A test set can be extremely useful when looking to assess many different iterations of a network we build. Where the validation set might be sent through the model in slightly different orders during training in order to assess the epoch by epoch performance, our test set is a *static set* of images. Because of this, it makes for a really good baseline for testing the first iteration of our network versus any subsequent versions that we create, perhaps after we refine the architecture, or add any other clever bits of logic that we think might help the network perform better in the real world.
+A test set can be extremely useful when looking to assess many different iterations of a network we build. Where the validation set might be sent through the model in slightly different orders during training in order to assess the epoch by epoch performance, our test set is a *static set* of images. Because of this, it makes for a really good baseline for testing the first iteration of our network versus any subsequent versions that we create, perhaps after we refine the architecture or add any other clever bits of logic that we think might help the network perform better in the real world.
 
 In the below code we run this in isolation from training. We:
 
@@ -528,27 +528,27 @@ ___
 <br>
 #### Dropout Overview
 
-Dropout is a technique used in Deep Learning primarily to reduce the effects of over-fitting. Over-fitting is where the network learns the patterns of the training data so specifically, that it runs the risk of not generalizing well, and being very unreliable when used to predict on new, unseen data.
+Dropout is a technique used in Deep Learning primarily to reduce the effects of over-fitting, which is when the network learns the patterns of the training data so specifically that it runs the risk of not generalizing well and becoming very unreliable when used to predict on new, unseen data.
 
-Dropout works in a way where, for each batch of observations that is sent forwards through the network, a pre-specified proportion of the neurons in a hidden layer are essentially ignored or deactivated. This can be applied to any number of the hidden layers.
+Dropout works in a way where for each batch of observations that is sent forward through the network, a pre-specified proportion of the neurons in a hidden layer is essentially ignored or deactivated. This can be applied to any number of the hidden layers.
 
 When we apply Dropout, the deactivated neurons are completely taken out of the picture - they take no part in the passing of information through the network.
 
 All the math is the same, the network will process everything as it always would (so taking the sum of the inputs multiplied by the weights, and adding a bias term, applying activation functions, and updating the network’s parameters using Back Propagation) - it’s just that in this scenario where we are disregarding some of the neurons, we’re essentially pretending that they’re not there.
 
-In a full network (i.e. where Dropout is not being applied) each of the combinations of neurons becomes quite specific at what it represents, at least in terms of predicting the output. At a high level, if we were classifying pictures of cats and dogs, there might be some linked combination of neurons that fires when it sees pointy ears and a long tongue. This combination of neurons becomes very tuned into its role in prediction, and it becomes very good at what it does - but as is the definition of overfitting, it becomes too good - it becomes too rigidly aligned with the training data.
+In a full network (i.e. where Dropout is not being applied) each of the combinations of neurons becomes quite specific at what it represents, at least in terms of predicting the output. At a high level, if we were classifying pictures of cats and dogs, for instance, there might be some linked combination of neurons that fires when it sees pointy ears and a long tongue. This combination of neurons becomes very tuned into its role in prediction, and it becomes very good at what it does - but per the definition of overfitting, it becomes too "good" (i.e., too rigidly aligned with the training data).
 
-If we *drop out* neurons during training, *other* neurons need to jump in fill in for this particular role of detecting those features. They essentially have to come in at late notice and cover the ignored neurons job, dealing with that particular representation that is so useful for prediction.
+If we *drop out* neurons during training, *other* neurons need to jump in fill in for this particular role of detecting those features. They essentially have to come in at late notice and cover the ignored neurons' job, dealing with that particular representation that is so useful for prediction.
 
-Over time, with different combinations of neurons being ignored for each mini-batch of data - the network becomes more adept at generalizing and thus is less likely to overfit to the training data. Since no particular neuron can rely on the presence of other neurons, and the features with which they represent - the network learns more robust features, and are less susceptible to noise.
+Over time, with different combinations of neurons being ignored for each mini-batch of data, the network becomes more adept at generalizing and thus is less likely to overfit to the training data. Since no particular neuron can rely on the presence of other neurons and the features they represent, the network learns more robust features and thus are less susceptible to noise.
 
-In a Convolutional Neural Network, such as in our task here - it is generally best practice to only apply Dropout to the Dense (Fully Connected) layer or layers, rather than to the Convolutional Layers.  
+In a Convolutional Neural Network, such as in our task here, it is generally a best practice to only apply Dropout to the Dense (Fully Connected) layer or layers, rather than to the Convolutional Layers.  
 
 
 <br>
 #### Updated Network Architecture
 
-In our task here, we only have one Dense Layer, so we apply Dropout to that layer only. A common proportion to apply (i.e. the proportion of neurons in the layer to be deactivated randomly each pass) is 0.5 or 50%.  We will apply this here.
+In our task here, we only have one Dense Layer, so we apply Dropout to that layer only. A common proportion to apply (i.e. the proportion of neurons in the layer to be deactivated randomly during each pass) is 0.5 or 50%.  We will apply this here.
 
 ```python
 
@@ -581,11 +581,11 @@ We run the exact same code to train this updated network as we did for the basel
 <br>
 #### Analysis Of Training Results
 
-As we again saved our training process to the *history* object, we can now analyse & plot the performance (Classification Accuracy, and Loss) of the updated network epoch by epoch.
+As we again saved our training process to the *history* object, we can now analyze and plot the performance (Classification Accuracy and Loss) of the updated network epoch by epoch.
 
 With the baseline network we saw very strong overfitting in action - it will be interesting to see if the addition of Dropout has helped!
 
-The below image shows the same two plots we analyzed for the updated network, the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange) & the second show the epoch by epoch **Classification Accuracy** again, for both the training set (blue) and the validation set (orange).
+The below image shows the same two plots we analyzed for the updated network, the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange) with the second showing the epoch by epoch **Classification Accuracy** again, for both the training set (blue) and the validation set (orange).
 
 <br>
 ![alt text](/img/posts/cnn-dropout-accuracy-plot.png "CNN Dropout Accuracy Plot")
@@ -593,30 +593,28 @@ The below image shows the same two plots we analyzed for the updated network, th
 <br>
 Firstly, we can see a peak Classification Accuracy on the validation set of around **89%** which is higher than the **83%** we saw for the baseline network.
 
-Secondly, and what we were really looking to see, is that gap between the Classification Accuracy on the training set, and the validation set has been mostly eliminated. The two lines are trending up at more or less the same rate across all epochs of training - and the accuracy on the training set also never reach 100% as it did before meaning that we are indeed seeing this *generalization* that we want!
-
-The addition of Dropout does appear to have remedied the overfitting that we saw in the baseline network. This is because, while some neurons are turned off during each mini-batch iteration of training - all will have their turn, many times, to be updated - just in a way where no neuron, or combination of neurons will become so hard-wired to certain features found in the training data!
+Secondly, and what we were really looking to see, is that gap between the Classification Accuracy on the training set and the validation set has been mostly eliminated. The two lines are trending up at more or less the same rate across all epochs of training - and the accuracy on the training set also never reaches 100% as it did before, meaning that we are indeed seeing this *generalization* that we want! The addition of Dropout does appear to have remedied the overfitting that we saw in the baseline network.
 
 <br>
 #### Performance On The Test Set
 
-During training, we assessed our updated networks performance on both the training set and the validation set. Here, like we did for the baseline network, we will get a view of how well our network performs when predict on data that was *no part* of the training process whatsoever - our test set.
+During training, we assessed our updated network's performance on both the training set and the validation set. Here, like we did for the baseline network, we will get a view of how well our network performs when predicting on data that was *no part* of the training process whatsoever - our test set.
 
-We run the exact same code as we did for the baseline network, with the only change being to ensure we are loading in network file for the updated network
+We run the exact same code as we did for the baseline network, with the only change being to ensure we are loading in the network file for the updated network.
 
 <br>
 #### Test Set Classification Accuracy
 
-Our baseline network achieved a **75% Classification Accuracy** on the test set. With the addition of Dropout we saw both a reduction in overfitting, and an increased *validation set* accuracy. On the test set, we again see an increase vs. the baseline, with an **85% Classification Accuracy**. 
+Our baseline network achieved a **75% Classification Accuracy** on the test set. With the addition of Dropout, we saw both a reduction in overfitting and an increased *validation set* accuracy. On the test set, we again see an increase vs. the baseline, with an **85% Classification Accuracy**. 
 
 <br>
 #### Test Set Confusion Matrix
 
 As mentioned above, while overall Classification Accuracy is very useful, but it can hide what is really going on with the network's predictions!
 
-The standout insight for the baseline network was that Bananas has only a 20% Classification Accuracy, very frequently being confused with Lemons. It will be interesting to see if the extra *generalization* forced upon the network with the application of Dropout helps this.
+The standout insight for the baseline network was that Bananas has only a 20% Classification Accuracy, very frequently being confused with Lemons. It will be interesting to see if the extra *generalization* forced upon the network with the application of Dropout helps with this.
 
-Running the same code from the baseline section on results for our updated network, we get the following output:
+Running the same code from the baseline section on results for our updated network, we get the following output for Confusion Matrix:
 
 ```
 
@@ -1365,6 +1363,7 @@ The proof of concept was successful, we have shown that we can get very accurate
 
 
 Transfer Learning has been a big success, and was the best performing network in terms of classification accuracy on the Test Set - however we still only trained for a small number of epochs so we can push this even further.  It would be worthwhile testing other available pre-trained networks such as ResNet, Inception, and the DenseNet networks.
+
 
 
 
