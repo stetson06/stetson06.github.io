@@ -128,14 +128,14 @@ ___
 
 # Setting Up VGG16  <a name="vgg16-setup"></a>
 
-Keras makes the use of VGG16 very easy. We download the bottom of the VGG16 network (everything up to the Dense Layers) and then add a parameter to ensure that the final layer is not a Max Pooling Layer but instead a *Global Max Pooling Layer*
+Keras makes the use of VGG16 very easy. We download the bottom of the VGG16 network (everything up to the Dense Layers) and then add a parameter to ensure that the final layer is not a Max Pooling Layer but instead a *Global Max Pooling Layer*.
 
 In the code below, we:
 
 * Import the required packaages
 * Set up the image parameters required for VGG16
 * Load in VGG16 with Global Average Pooling
-* Save the network architecture & weights for use in search engine
+* Save the network architecture and weights for use in search engine
 
 <br>
 ```python
@@ -218,7 +218,7 @@ _________________________________________________________________
 
 ```
 <br>
-If we hadn't added that last parameter of "pooling = avg" then the final layer would have been that MaxPoolingLayer of shape 7 by 7 by 512. Instead however, the Global Average Pooling logic was added, and this means we get that single array that is of size 512.  In other words, all of the feature maps from that final Max Pooling layer are summarised down into one vector of 512 numbers, and for each image these numbers will represent it's features. This feature vector is what we will be using to compare our base set of images, to any given search image to assess the similarity!
+If we hadn't added that last parameter of "pooling = avg", then the final layer would have been that MaxPoolingLayer of shape 7 by 7 by 512. Instead, the Global Average Pooling logic was added, and this means we get that single array that is of size 512. In other words, all of the feature maps from that final Max Pooling layer are summarized down into one vector of 512 numbers - for each image these numbers will represent its features. This feature vector is what we will be using to compare our base set of images with any given search image to assess the similarity!
 
 ___
 <br>
@@ -227,7 +227,7 @@ ___
 <br>
 #### Helper Functions
 
-Here we create two useful functions, one for pre-processing images prior to entering the network, and the second for featurising the image, in other words passing the image through the VGG16 network and receiving the output, a single vector of 512 numeric values.
+Here we create two useful functions, one for pre-processing images prior to entering the network and the other for featurizing the image (i.e., passing the image through the VGG16 network and receiving the output, a single vector of 512 numeric values).
 
 ```python
 
@@ -241,8 +241,8 @@ def preprocess_image(filepath):
     
     return image
 
-# image featurisation function
-def featurise_image(image):
+# image featurization function
+def featurize_image(image):
     
     feature_vector = model.predict(image)
     
@@ -259,7 +259,7 @@ The *preprocess_image* function does the following:
 * Applies the custom pre-processing logic for VGG16 that we imported from Keras
 * Returns the image as an array
 
-The *featurise_image* function does the following:
+The *featurize_image* function does the following:
 
 * Receives the image as an array
 * Passes the array through the VGG16 architecture
@@ -271,8 +271,8 @@ The *featurise_image* function does the following:
 In the code below, we:
 
 * Specify the directory of the base-set of images
-* Set up empty list to append our image filenames (for future lookup)
-* Set up empty array to append our base-set feature vectors
+* Set up an empty list to append our image filenames (for future lookup)
+* Set up an empty array to append our base-set feature vectors
 
 ```python
 
@@ -286,13 +286,13 @@ feature_vector_store = np.empty((0,512))
 ```
 
 <br>
-#### Preprocess & Featurise Base-Set Images
+#### Preprocess and Featurize Base-Set Images
 
-We now want to preprocess & feature all 300 images in our base-set.  To do this we execute a loop and apply the two functions we created earlier.  For each image, we append the filename, and the feature vector to stores.  We then save these stores, for future use when a search is executed.
+We now want to preprocess and feature all 300 images in our base-set. To do this, we execute a loop and apply the two functions we created earlier. For each image, we append the filename and the feature vector to stores. We then save these stores for future use when a search is executed.
 
 ```python
 
-# pass in & featurise base image set
+# pass in & featurize base image set
 for image in listdir(source_dir):
     
     print(image)
@@ -304,7 +304,7 @@ for image in listdir(source_dir):
     preprocessed_image = preprocess_image(source_dir + image)
     
     # extract the feature vector
-    feature_vector = featurise_image(preprocessed_image)
+    feature_vector = featurize_image(preprocessed_image)
     
     # append feature vector for similarity calculations
     feature_vector_store = np.append(feature_vector_store, feature_vector, axis = 0)
@@ -472,6 +472,7 @@ It would be beneficial to come up with a way to quantify the quality of the sear
 
 
 Here we utilised VGG16. It would be worthwhile testing other available pre-trained networks such as ResNet, Inception, and the DenseNet networks.
+
 
 
 
