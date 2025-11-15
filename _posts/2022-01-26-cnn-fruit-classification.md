@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Fruit Classification Using A Convolutional Neural Network
+title: Fruit Classification Using a Convolutional Neural Network
 image: "/posts/cnn-fruit-classification-title-img.png"
 tags: [Deep Learning, CNN, Data Science, Computer Vision, Python]
 ---
 
-In this project we build & optimize a Convolutional Neural Network to classify images of fruits, with the goal of helping a grocery retailer enhance & scale their sorting & delivery processes. 
+In this project, we build and optimize a Convolutional Neural Network to classify images of fruits, with the goal of helping a grocery retailer enhance & scale their sorting & delivery processes. 
 
 # Table of Contents
 
@@ -1360,3 +1360,4 @@ ___
 The proof of concept was successful - we have shown that we can get very accurate predictions, albeit on a small number of classes. We need to showcase this to the client, discuss what it is that makes the network more robust, and then look to test our best networks on a larger array of classes.
 
 Transfer Learning was a big success - the best-performing network in terms of classification accuracy on the Test Set. However, we still only trained for a small number of epochs, so we can push this even further. It would be worthwhile to test other available pre-trained networks such as ResNet, Inception, and DenseNet networks.
+
