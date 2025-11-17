@@ -6,10 +6,11 @@ tags: [Tableau, Data Viz]
 
 ---
 
-This is a Tableau Dashboard that tracked global Earthquake activity across a 30-day period (Jul-Aug 2022) - it is interactive (you may slide the Analysis Date as desired to see what happened on a specific day). This also lives on my Tableau Public page (link at the bottom).
+This is a Tableau Dashboard that tracked global Earthquake activity across a 30-day period (Jul-Aug 2022) - it is interactive, so you can use the slidebar to move the Analysis Date as desired to see what happened on a specific day.
 
 <br>                                                                      
 <iframe seamless frameborder="0" src="https://public.tableau.com/views/EarthquakeDashboard_17603003679420/EarthquakeTracker?:embed=yes&:display_count=yes&:showVizHome=no" width = '1090' height = '900'></iframe>
+
 
 
 
