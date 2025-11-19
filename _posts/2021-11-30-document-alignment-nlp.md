@@ -12,17 +12,17 @@ One time, a customer with a large R&D budget wanted some help identifying the la
 
 <br>  
 # Old School NLP Technique
-The general process is to first convert your base document and the candidate text into numerical representations (called *vectors* or *embeddings*), and then use a mathematical formula (like *cosine similarity*) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
+The general process is to first convert your target/base document and the candidate text into numerical representations (called *vectors* or *embeddings*), and then use a mathematical formula (like *cosine similarity*) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
 
 We first will show how to use the Classic Method (*TF-IDF + Cosine Similarity*) - this method is great for matching keywords and topics but doesn't understand the meaning or context of the words. This Classic Method works by counting how many times important words appear. Before the age of AI and Deep Learning, this was the industry standard for text comparison. 
 
-This method treats documents as "bags of words." It calculates alignment based on keyword overlap, statistically weighing unique words (like "Synergy" or "Q3-Revenue") higher than common words (like "the" or "is").
+This method treats documents as a "bags of words." It calculates alignment based on keyword overlap, statistically weighing unique words (like "Synergy" or "Q3-Revenue") higher than common words (like "the" or "is").
 
 How it works:
 1. *TF-IDF* (*Term Frequency-Inverse Document Frequency*) creates a vector for each document, where each dimension is a word. The value is high if a word is frequent in that document but rare in all documents.
 2. *Cosine Similarity* calculates the angle between these two vectors (with a lower angle indicating directional "similarity" and semantic alignment).
 
-We first looked up the organization's current strategic planning document and loaded it onto a Word (.docx) file. We then obtained Gartner's latest **Emerging Technolgies Hype Cycle** publication (2021) that listed 24 ETs across three themes - see below:
+We first looked up the organization's current vision/strategic planning document and loaded it onto a Word (.docx) file. We then obtained Gartner's latest **Emerging Technolgies Hype Cycle** publication (2021) that listed 24 ETs across three themes - see below:
 
 Theme 1: Engineering Trust (x10)
 •	Sovereign Cloud
@@ -77,7 +77,18 @@ pip install python-docx
 ```
 <br>  
 
-Once the installation finished, you then ran the Python script as normal. Our Python code was as below:
+Once the installation finished, we then were poised to run the Python script as normal. 
+
+Since the work we performed for our client was proprietary and/or classified, for this case study we will use a notional customer - *GitHub, Inc.* - and use their current vision statement found online as the target document.
+
+Also, for simplicity's sake, we will only involve five of the 24 emerging technology candidates in the NLP model, as listed below (for a total of six .docx files):
+# tech1 = Nonfungible Tokens (NFTs)
+# tech2 = Active Metadata Management
+# tech3 = Generative AI
+# tech4 = AI-Driven Innovation
+# tech5 = Quantum Machine Learning (Quantum ML)
+
+Our Python code thus read as below:
 
 ```python
 import os
@@ -166,6 +177,9 @@ def extract_text_including_tables(file_path):
     return '\n'.join(full_text)
 ```
 
+This results in a dictionary containing all the .docx files and text strings.
+
+
 
 
 
@@ -222,7 +236,7 @@ def calculate_tfidf_alignment(documents_dict, target_filename):
     return results_df
 
 # --- Usage ---
-target_file = "strategicplanningdoc.docx"
+target_file = "strategicplanning.docx"
 
 tfidf_report = calculate_tfidf_alignment(all_documents, target_file)
 
@@ -268,11 +282,8 @@ This method is best for: Document-sorting, information retrieval, and finding do
 
 https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/
 
-# tech1 = Nonfungible Tokens (NFTs)
-# tech2 = Active Metadata Management
-# tech3 = Generative AI
-# tech4 = AI-Driven Innovation
-# tech5 = Quantum Machine Learning (Quantum ML)
+
+
 
 
 
