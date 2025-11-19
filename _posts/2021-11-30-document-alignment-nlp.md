@@ -249,6 +249,7 @@ print(tfidf_report)
 ```
 
 The output is as below:
+<br>
     ![angles](/img/posts/angles.png)
 
 <br>
@@ -373,6 +374,7 @@ Very interesting! Notice how tech4 (AI-Driven Innovation) is now first, by a goo
 ```python
 
 ```
+
 
 
 
