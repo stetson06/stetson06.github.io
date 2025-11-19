@@ -8,11 +8,12 @@ tags: [Deep Learning, Data Viz]
 
 # Overview of Project
 
-One time, a customer with a large R&D budget wanted some help identifying the latest technologies for investment, prioritizing them in relation to the overall organization's strategic plan and long-term goals and objectives. In effect, they asked us: **"How would you use AI to determine how well certain text (descriptions of candidate technologies) aligns with a base document (strategic plan document)?"** We soon determined the best analytical methodology that was available at the time - *Natural Language Processing (NLP) in Python using the scikit-learn library*! There are now other, more advanced methods available that we will discuss at the end of this page.
+One time, a customer with a large R&D budget wanted some help identifying the latest technologies for investment, wanting to prioritizing them in relation to their organization's strategic vision and plan. In effect, they asked us: **"How would you use AI to determine how well certain text (i.e., descriptions of candidate technologies) aligns with a target document (i.e., strategic plan document)?"** We soon determined the best analytical methodology that was available at the time - *Natural Language Processing (NLP) in Python using the scikit-learn library*! There are now other, more advanced methods available that we will discuss at the end of this page.
+
+The general process is to first convert your target/base document and the candidate text into numerical representations (called *vectors* or *embeddings*), and then use a mathematical formula (like *cosine similarity*) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
 
 <br>  
 # Old School NLP Technique
-The general process is to first convert your target/base document and the candidate text into numerical representations (called *vectors* or *embeddings*), and then use a mathematical formula (like *cosine similarity*) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
 
 We first will show how to use the Classic Method (*TF-IDF + Cosine Similarity*) - this method is great for matching keywords and topics but doesn't understand the meaning or context of the words. This Classic Method works by counting how many times important words appear. Before the age of AI and Deep Learning, this was the industry standard for text comparison. 
 
@@ -22,48 +23,32 @@ How it works:
 1. *TF-IDF* (*Term Frequency-Inverse Document Frequency*) creates a vector for each document, where each dimension is a word. The value is high if a word is frequent in that document but rare in all documents.
 2. *Cosine Similarity* calculates the angle between these two vectors (with a lower angle indicating directional "similarity" and semantic alignment).
 
-We first looked up the organization's current vision/strategic planning document and loaded it onto a Word (.docx) file. We then obtained Gartner's then current 2021 **Emerging Technolgies Hype Cycle** [publication](https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/) that listed 24 ETs across three themes - see below:
+We first looked up the organization's current vision/strategic planning document and loaded it onto a Word (.docx) file. We subsequently obtained Gartner's then-current 2021 **Emerging Technolgies Hype Cycle** [publication](https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/) that listed 24 ETs across three themes - see below:
 
-Theme 1: Engineering Trust (x10)
-•	Sovereign Cloud
-•	Nonfungible Tokens (NFTs)
-•	Machine-Readable Legislation
-•	Decentralized Identity (DCI)
-•	Decentralized Finance (DeFi)
-•	Homomorphic Encryption
-•	Active Metadata Management
-•	Data Fabric
-•	Real-Time Incident Center
-•	Employee Communications Applications
-Theme 2: Accelerating Growth (x6)
-•	Generative AI
-•	Digital Humans
-•	Multi-experience
-•	Industry Cloud
-•	AI-Driven Innovation
-•	Quantum Machine Learning (Quantum ML)
-Theme 3: Sculpting Change (x8)
-•	Composable Applications
-•	Composable Networks
-•	AI-Augmented Software Engineering
-•	AI-Augmented Design
-•	Physics-Informed AI
-•	Influence Engineering
-•	Digital Platform Conductor Tools
-•	Named Data Networking (NDN)
+| **Theme 1: Engineering Trust** | **Theme 2: Accelerating Growth** | **Theme 3: Sculpting Change** |
+|:---|:---|:---|
+|Sovereign Cloud|Generative AI|Composable Applications|
+|Nonfungible Tokens (NFTs)|Digital Humans|Composable Networks|
+|Machine-Readable Legislation|Multi-experience|AI-Augmented Software Engineering|
+|Decentralized Identity (DCI)|Industry Cloud|AI-Augmented Design|
+|Decentralized Finance (DeFi)|AI-Driven Innovation|Physics-Informed AI|
+|Homomorphic Encryption|Quantum Machine Learning (Quantum ML)|Influence Engineering|
+|Active Metadata Management||Digital Platform Conductor Tools|
+|Data Fabric| |Named Data Networking (NDN)|
+|Real-Time Incident Center| | |
+|Employee Communications Applications| | |
 
+<br>
 Each ET had a description that was captured in a separate Word file. An example for one of the ETs, "Generative AI", is captured below:
+<br>
 **Generative AI: AI techniques that learn from existing artifacts to generate new, realistic content (images, text, audio, code) that reflects the characteristics of the training data but does not repeat it.** (In 2021, this was just beginning to rise significantly).
 
 We posted all the Word files onto our working repository, ready for Python to come calling!
 
 To code this all up, we first had to install the required library:
-
-<br>                                                                      
 ```
 python -m pip install python-docx
-```
-<br>                                                                      
+```                                                                     
 We ran this command above in our Terminal (Mac/Linux) or Command Prompt/PowerShell (Windows) ("C:\Users\YOURACCOUNTNAME>") - if running Python through Anaconda, then use the Anaconda prompt and the command below:
 
 ```
@@ -82,12 +67,14 @@ Once the installation finished, we then were poised to run the Python script as 
 Since the work we performed for our client was proprietary and/or classified, for this case study we will use a notional customer - *GitHub, Inc.* - and use their current vision statement found online as the target document.
 
 Also, for simplicity's sake, we will only involve five of the 24 emerging technology candidates in the NLP model, as listed below (for a total of six Word .docx files):
-*tech1 = Nonfungible Tokens (NFTs)*
-*tech2 = Active Metadata Management*
-*tech3 = Generative AI*
-*tech4 = AI-Driven Innovation*
-*tech5 = Quantum Machine Learning (Quantum ML)*
-
+|Candidate Name |Emerging Technology |
+|:---|:---|
+|tech1|Nonfungible Tokens (NFTs)|
+|tech2|Active Metadata Management |
+|tech3|Generative AI|
+|tech4|AI-Driven Innovation|
+|tech5|Quantum Machine Learning (Quantum ML)|
+<br>
 Just eyeballing the ETs, and given GitHub's mission/vision (i.e., *"To build the AI-native developer platform for the world."*), we would guess that tech3 (Generative AI) and and tech4 (AI-Driven Innovation) would have the highest alignment with GitHub, while tech1 (NFTs) would have the lowest. Let's see what happens!
 
 Our Python code begins as below to extract the text from all six Word files in our working directory (and any other .docx files therein!) and capture them as strings in a combined dictionary (a single object).
@@ -157,9 +144,9 @@ for name, content in all_documents.items():
 ```
 
 <br>
-
 Important Limitation (Tables)
-The standard doc.paragraphs loop shown above reads the body text. It often skips text inside tables. So if your documents rely heavily on tables, you must also iterate through doc.tables. Here is how you would modify the extract_text_from_docx function to include table text:
+<br>
+The standard doc.paragraphs loop shown above reads the body text. It often skips text inside tables. So if our documents had relied heavily on tables (which they didn't), then we also would have had to iterate through doc.tables. Here is how we would haved modified the extract_text_from_docx function to include table text:
 
 ```python
 def extract_text_including_tables(file_path):
@@ -177,15 +164,13 @@ def extract_text_including_tables(file_path):
                 full_text.append(cell.text)
                 
     return '\n'.join(full_text)
-
 ```
-
 <br>
 Below is what the output looks like:
     ![strings](/img/posts/strings.png)
     
 <br>
-This is when the fun really starts! We see below Python's scikit-learn library, the Vectorizer function, and cosine_similarity calculator at work. 
+This is when the fun really starts! We see below Python's scikit-learn library, the Vectorizer function, and cosine_similarity calculator at work in the code. 
 
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -248,16 +233,15 @@ print(tfidf_report)
 
 ```
 
+
 The output is as below:
 <br>
     ![angles](/img/posts/angles.png)
-
 <br>
 It should come as no surprise that tech3 (Generative AI) fared well, but tech4 (AI-Driven Innovation) only came in a distant second (given GitHub's emphasis on innovation, it would seem it should have fared better). Not doing so well were tech1 (NFTs) and tech5 (Quantum ML) - tech1 was expected, but tech5 was admittedly a minor surprise (either that or we don't really know what quantum ML is)! 
 
 <br>
 <br>
-
 # State-of-the-Art Deep Learning/Artificial Neural Network Technique
 To conduct "semantic alignment" (meaning checking how closely the meaning of documents matches, rather than just checking for matching keywords), the industry standard approach currently is to use *Vector Embeddings*.
 
@@ -266,9 +250,7 @@ We use the *sentence-transformers library* (based on **BERT** or *bidirectional 
 We first install the required Python Sentence Transformers library using either the Windows Command or Anaconda prompt (as before):
 
 ```python
-
 conda install -c conda-forge sentence-transformers
-
 ```
 
 <br>
@@ -343,13 +325,12 @@ alignment_report = calculate_semantic_alignment(all_documents, target_file)
 # Print the table
 print(f"Semantic Alignment with {target_file}:\n")
 print(alignment_report)
-
 ```
 
 <br>
-
 ### How to Interpret the Output
 The code outputs a Pandas DataFrame (a nice table). Here is what the Alignment Score means:
+
 | **Score** | **Alignment** | **Description** |
 |:---:|:---|:---|
 |0.80 - 1.00|Highly Aligned|The documents are likely talking about the exact same topics, perhaps even reusing the same paragraphs.|
@@ -357,7 +338,7 @@ The code outputs a Pandas DataFrame (a nice table). Here is what the Alignment S
 | 0.20 - 0.49|Loosely Related|They might share a domain (e.g., "Business"), but the topics don't overlap much.|
 |< 0.20|Unrelated|One is about Strategy, the other is likely about something completely different, like a lunch menu or unrelated IT logs.|
 
-####Important Note on Document Length
+#### Important Note on Document Length
 The model used here (all-MiniLM-L6-v2) typically looks at the first 256–512 "tokens" (roughly 300-400 words) to form its impression of the document.
 
 If your documents are short: This works perfectly.
@@ -369,13 +350,14 @@ The output now is as below:
 
 Very interesting! Notice how tech4 (AI-Driven Innovation) is now first, by a good margin over the previous top ET (tech3 - Generative AI), better reflecting the ethos at GitHub. The rest of the candidates remain in the same order, although it's surprising that tech5 (Quantum ML) still does so poorly.
 
-So which is the better method? They are compared in the table below:
+So which is the better method, TF-IDF (old) or BERT (new)? They are compared in the table below:
 <br>
     ![oldvsnew](/img/posts/oldvsnew.png)
 
 Generally speaking, if we want to know if other documents reference the specific jargon used in target document, then use TF-IDF; but if we want to know if other documents support the goals of the target document (even if they describe them differently), use BERT, which reads for **meaning and context**.
 
 ___
+
 
 
 
