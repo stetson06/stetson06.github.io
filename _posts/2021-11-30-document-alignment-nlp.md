@@ -350,10 +350,12 @@ print(alignment_report)
 
 ### How to Interpret the Output
 The code outputs a Pandas DataFrame (a nice table). Here is what the Alignment Score means:
-0.80 - 1.00: Highly Aligned. The documents are likely talking about the exact same topics, perhaps even reusing the same paragraphs.
-0.50 - 0.79: Moderately Aligned. They share the same context (e.g., both are about "Corporate Strategy" or "Q3 Goals"), but the specific content differs.
-0.20 - 0.49: Loosely Related. They might share a domain (e.g., "Business"), but the topics don't overlap much.
-< 0.20: Unrelated. One is about Strategy, the other is likely about something completely different, like a lunch menu or unrelated IT logs.
+| **Score** | **Alignment** | **Description** |
+|:---:|:---|:---|
+|0.80 - 1.00|Highly Aligned|The documents are likely talking about the exact same topics, perhaps even reusing the same paragraphs.|
+|0.50 - 0.79|Moderately Aligned|They share the same context (e.g., both are about "Corporate Strategy" or "Q3 Goals"), but the specific content differs.|
+| 0.20 - 0.49|Loosely Related|They might share a domain (e.g., "Business"), but the topics don't overlap much.|
+|< 0.20|Unrelated|One is about Strategy, the other is likely about something completely different, like a lunch menu or unrelated IT logs.|
 
 ####Important Note on Document Length
 The model used here (all-MiniLM-L6-v2) typically looks at the first 256–512 "tokens" (roughly 300-400 words) to form its impression of the document.
@@ -362,21 +364,18 @@ If your documents are short: This works perfectly.
 If your documents are 50+ pages: It will only compare the introductions/summaries.
 
 The output now is as below:
+<br>
     ![angles2](/img/posts/angles2.png)
 
 Very interesting! Notice how tech4 (AI-Driven Innovation) is now first, by a good margin over the previous top ET (tech3 - Generative AI), better reflecting the ethos at GitHub. The rest of the candidates remain in the same order, although it's surprising that tech5 (Quantum ML) still does so poorly.
 
-```python
+So which is the better method? They are compared in the table below:
+<br>
+    ![oldvsnew](/img/posts/oldvsnew.png)
 
-```
+Generally speaking, if we want to know if other documents reference the specific jargon used in target document, then use TF-IDF; but if we want to know if other documents support the goals of the target document (even if they describe them differently), use BERT, which reads for **meaning and context**.
 
-
-```python
-
-```
-
-
-
+___
 
 
 
