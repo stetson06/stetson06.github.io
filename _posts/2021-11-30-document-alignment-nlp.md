@@ -8,19 +8,21 @@ tags: [Deep Learning, Data Viz]
 
 # Overview of Project
 
-One time, a customer with a large R&D budget wanted some help identifying the latest technologies for investment, prioritizing them in relation to the overall organization's strategic plan and long-term goals and objectives. In effect, they asked us: "How would you use AI to determine how well certain text (descriptions of candidate technologies) aligns with a base document (strategic plan document)?" We soon determined the best analytical methodology that was available at the time - Natural Language Processing (NLP) in Python using the scikit-learn library! There are now other, more advanced methods available that we will discuss at the end of this page.
+One time, a customer with a large R&D budget wanted some help identifying the latest technologies for investment, prioritizing them in relation to the overall organization's strategic plan and long-term goals and objectives. In effect, they asked us: **"How would you use AI to determine how well certain text (descriptions of candidate technologies) aligns with a base document (strategic plan document)?"** We soon determined the best analytical methodology that was available at the time - *Natural Language Processing (NLP) in Python using the scikit-learn library*! There are now other, more advanced methods available that we will discuss at the end of this page.
 
 <br>  
-# NLP Technique
-The general process is to first convert your base document and the candidate text into numerical representations (called vectors or embeddings), and then use a mathematical formula (like cosine similarity) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
+# Old School NLP Technique
+The general process is to first convert your base document and the candidate text into numerical representations (called *vectors* or *embeddings*), and then use a mathematical formula (like *cosine similarity*) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
 
-We used the Classic Method (TF-IDF + Cosine Similarity) - this method is great for matching keywords and topics but doesn't understand the meaning or context of the words. This Classic Method works by counting how many times important words appear.
+We first will show how to use the Classic Method (*TF-IDF + Cosine Similarity*) - this method is great for matching keywords and topics but doesn't understand the meaning or context of the words. This Classic Method works by counting how many times important words appear. Before the age of AI and Deep Learning, this was the industry standard for text comparison. 
+
+This method treats documents as "bags of words." It calculates alignment based on keyword overlap, statistically weighing unique words (like "Synergy" or "Q3-Revenue") higher than common words (like "the" or "is").
 
 How it works:
-1. TF-IDF (Term Frequency-Inverse Document Frequency) creates a vector for each document, where each dimension is a word. The value is high if a word is frequent in that document but rare in all documents.
-2. Cosine Similarity calculates the angle between these two vectors (with a lower angle indicating directional "similarity" and semantic alignment).
+1. *TF-IDF* (*Term Frequency-Inverse Document Frequency*) creates a vector for each document, where each dimension is a word. The value is high if a word is frequent in that document but rare in all documents.
+2. *Cosine Similarity* calculates the angle between these two vectors (with a lower angle indicating directional "similarity" and semantic alignment).
 
-We first looked up the organization's current strategic planning document and loaded it onto a Word (.docx) file. We then obtained Gartner's latest Emerging Technolgies Hype Cycle publication (2021) that listed 34 ETs across three themes - see below:
+We first looked up the organization's current strategic planning document and loaded it onto a Word (.docx) file. We then obtained Gartner's latest **Emerging Technolgies Hype Cycle** publication (2021) that listed 24 ETs across three themes - see below:
 
 Theme 1: Engineering Trust (x10)
 •	Sovereign Cloud
@@ -40,7 +42,7 @@ Theme 2: Accelerating Growth (x6)
 •	Industry Cloud
 •	AI-Driven Innovation
 •	Quantum Machine Learning (Quantum ML)
-Theme 3: Sculpting Change (x18)
+Theme 3: Sculpting Change (x8)
 •	Composable Applications
 •	Composable Networks
 •	AI-Augmented Software Engineering
@@ -50,8 +52,8 @@ Theme 3: Sculpting Change (x18)
 •	Digital Platform Conductor Tools
 •	Named Data Networking (NDN)
 
-Each ET had a description that wsa captured in a separate Word file. An example for one of the ETs, "Generative AI", is captured below:
-Generative AI: AI techniques that learn from existing artifacts to generate new, realistic content (images, text, audio, code) that reflects the characteristics of the training data but does not repeat it. (In 2021, this was just beginning to rise significantly).
+Each ET had a description that was captured in a separate Word file. An example for one of the ETs, "Generative AI", is captured below:
+**Generative AI: AI techniques that learn from existing artifacts to generate new, realistic content (images, text, audio, code) that reflects the characteristics of the training data but does not repeat it.** (In 2021, this was just beginning to rise significantly).
 
 We posted all the Word files onto our working repository, ready for Python to come calling!
 
@@ -60,27 +62,22 @@ To code this all up, we first had to install the required library:
 <br>                                                                      
 ```
 python -m pip install python-docx
-
 ```
 <br>                                                                      
-Run this command in your Terminal (Mac/Linux) or Command Prompt/PowerShell (Windows) ("C:\Users\YOURACCOUNTNAME>") - if running Python through Anaconda, then use the Anaconda prompt and the command below:
+We ran this command above in our Terminal (Mac/Linux) or Command Prompt/PowerShell (Windows) ("C:\Users\YOURACCOUNTNAME>") - if running Python through Anaconda, then use the Anaconda prompt and the command below:
 
 ```
 conda install -c conda-forge python-docx
-
 ```
 <br>  
-This is the Anaconda native way and is recommended. If this doesn't work (takes too long or fails), then use this #inside this same window#:
+This is the Anaconda native way and is recommended. If this doesn't work (takes too long or fails), then use this *inside this same window*:
 
 ```
 pip install python-docx
-
 ```
 <br>  
 
-Once the installation finishes, you may now run the Python script as normal. Whatever you do, do ##not## run this preliminart step inside the Python interpreter (the place with the >>> prompt), or you will get a syntax error.
-
-Then we proceded with our Python code as below:
+Once the installation finished, you then ran the Python script as normal. Our Python code was as below:
 
 ```python
 import os
@@ -144,7 +141,6 @@ for name, content in all_documents.items():
     print(f"--- {name} ---")
     print(content[:100] + "...")
     print("\n")
-
 ```
 
 <br>
@@ -168,17 +164,83 @@ def extract_text_including_tables(file_path):
                 full_text.append(cell.text)
                 
     return '\n'.join(full_text)
-
 ```
 
-<br>  
 
+
+
+<br>  
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
+
+def calculate_tfidf_alignment(documents_dict, target_filename):
+    # --- 1. Preparation ---
+    # Convert dictionary to parallel lists for Scikit-Learn
+    filenames = list(documents_dict.keys())
+    texts = list(documents_dict.values())
+
+    if target_filename not in filenames:
+        return f"Error: '{target_filename}' not found."
+
+    # --- 2. Vectorization (TF-IDF) ---
+    # This converts text into a matrix of numbers based on word counts.
+    # stop_words='english' removes common filler words (the, a, an, in)
+    tfidf_vectorizer = TfidfVectorizer(stop_words='english')
+    
+    # Fit and transform the texts. 
+    # This creates a sparse matrix where rows=documents, columns=words
+    tfidf_matrix = tfidf_vectorizer.fit_transform(texts)
+
+    # --- 3. Calculate Similarity ---
+    # Find the index location of our target file in the list
+    target_index = filenames.index(target_filename)
+    
+    # Calculate cosine similarity between the target and ALL other documents
+    # This returns an array of scores (0.0 to 1.0)
+    cosine_scores = cosine_similarity(tfidf_matrix[target_index:target_index+1], tfidf_matrix)
+
+    # --- 4. Format Output ---
+    results = []
+    
+    # The result is a list of lists, we want the first (and only) row
+    scores_list = cosine_scores[0]
+
+    for i, score in enumerate(scores_list):
+        # Compare against others, not itself
+        if filenames[i] != target_filename:
+            results.append({
+                "Document": filenames[i],
+                "Keyword Overlap Score": score,
+                "Percentage": f"{score:.1%}"
+            })
+
+    # Sort by highest score
+    results_df = pd.DataFrame(results).sort_values(by="Keyword Overlap Score", ascending=False)
+    
+    return results_df
+
+# --- Usage ---
+target_file = "strategicplanningdoc.docx"
+
+tfidf_report = calculate_tfidf_alignment(all_documents, target_file)
+
+print(f"Keyword Alignment with {target_file}:\n")
+print(tfidf_report)
 
 
 ```python
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+
+
+
+
+
+
+
+
+
 
 
 base_doc = ""
@@ -211,6 +273,7 @@ https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle
 # tech3 = Generative AI
 # tech4 = AI-Driven Innovation
 # tech5 = Quantum Machine Learning (Quantum ML)
+
 
 
 
