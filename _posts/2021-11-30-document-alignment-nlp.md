@@ -178,13 +178,13 @@ def extract_text_including_tables(file_path):
                 
     return '\n'.join(full_text)
 ```
-
+<br>
 Below is what the output looks like:
     ![strings](/img/posts/strings.png)
+    
+<br>
+This is when the fun really starts! We see below Python's scikit-learn library, the Vectorizer function, and cosine_similarity calculator at work. 
 
-This is when the fun really starts! We see here Python's scikit-learn library and the Vectorizer and cosine_similarity calculator at work. 
-
-<br>  
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -244,8 +244,11 @@ tfidf_report = calculate_tfidf_alignment(all_documents, target_file)
 print(f"Keyword Alignment with {target_file}:\n")
 print(tfidf_report)
 
+```
 
-```python
+The output is as below:
+    ![angles](/img/posts/angles.png)
+
 
 
 
@@ -282,6 +285,7 @@ This method is best for: Document-sorting, information retrieval, and finding do
 <br>
 
 https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/
+
 
 
 
