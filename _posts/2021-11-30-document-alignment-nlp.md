@@ -22,7 +22,7 @@ How it works:
 1. *TF-IDF* (*Term Frequency-Inverse Document Frequency*) creates a vector for each document, where each dimension is a word. The value is high if a word is frequent in that document but rare in all documents.
 2. *Cosine Similarity* calculates the angle between these two vectors (with a lower angle indicating directional "similarity" and semantic alignment).
 
-We first looked up the organization's current vision/strategic planning document and loaded it onto a Word (.docx) file. We then obtained Gartner's latest **Emerging Technolgies Hype Cycle** publication (2021) that listed 24 ETs across three themes - see below:
+We first looked up the organization's current vision/strategic planning document and loaded it onto a Word (.docx) file. We then obtained Gartner's then current 2021 **Emerging Technolgies Hype Cycle** [publication](https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/) that listed 24 ETs across three themes - see below:
 
 Theme 1: Engineering Trust (x10)
 •	Sovereign Cloud
@@ -177,7 +177,9 @@ def extract_text_including_tables(file_path):
                 full_text.append(cell.text)
                 
     return '\n'.join(full_text)
+
 ```
+
 <br>
 Below is what the output looks like:
     ![strings](/img/posts/strings.png)
@@ -249,42 +251,133 @@ print(tfidf_report)
 The output is as below:
     ![angles](/img/posts/angles.png)
 
+<br>
+It should come as no surprise that tech3 (Generative AI) fared well, but tech4 (AI-Driven Innovation) only came in a distant second (given GitHub's emphasis on innovation, it would seem it should have fared better). Not doing so well were tech1 (NFTs) and tech5 (Quantum ML) - tech1 was expected, but tech5 was admittedly a minor surprise (either that or we don't really know what quantum ML is)! 
 
+<br>
+<br>
 
+# State-of-the-Art Deep Learning/Artificial Neural Network Technique
+To conduct "semantic alignment" (meaning checking how closely the meaning of documents matches, rather than just checking for matching keywords), the industry standard approach currently is to use *Vector Embeddings*.
 
+We use the *sentence-transformers library* (based on **BERT** or *bidirectional encoder representations from transformers*). It converts every document into a list of numbers (a vector) representing its meaning. As before, we then calculate the Cosine Similarity between the vectors to get a score from 0 (no alignment) to 1 (perfect alignment).
 
+We first install the required Python Sentence Transformers library using either the Windows Command or Anaconda prompt (as before):
 
+```python
 
-
-
-
-
-
-
-base_doc = ""
-text_to_compare = ""
-unrelated_text = ""
-
-documents = [base_doc, text_to_compare, unrelated_text]
-
-# 1. Create the TF-IDF vectors
-tfidf_vectorizer = TfidfVectorizer()
-tfidf_matrix = tfidf_vectorizer.fit_transform(documents)
-
-# 2. Calculate the similarity
-# This compares the first doc (index 0) to all other docs
-scores = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix)
-
-print(f"Score for aligned text: {scores[0][1]}")   # e.g., 0.45
-print(f"Score for unrelated text: {scores[0][2]}") # e.g., 0.0
+conda install -c conda-forge sentence-transformers
 
 ```
 
-This method is best for: Document-sorting, information retrieval, and finding documents with similar keywords.
+<br>
+The ensuing Python code block is captured below:
+
+```python
+from sentence_transformers import SentenceTransformer, util
+import pandas as pd
+
+# 1. Load a pre-trained model
+# 'all-MiniLM-L6-v2' is excellent for speed and accuracy on local CPUs
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+def calculate_semantic_alignment(documents_dict, target_filename):
+    # --- Validation ---
+    if target_filename not in documents_dict:
+        return f"Error: '{target_filename}' not found in the document list."
+    
+    # --- Segregate Data ---
+    # Isolate the text of the target strategy document
+    target_text = documents_dict[target_filename]
+    
+    # Create lists for the other files to compare against
+    other_filenames = []
+    other_texts = []
+    
+    for filename, text in documents_dict.items():
+        if filename != target_filename:
+            other_filenames.append(filename)
+            other_texts.append(text)
+            
+    if not other_texts:
+        return "No other documents to compare against."
+
+    print("Generating embeddings... (this uses your CPU to 'read' the texts)")
+    
+    # --- Encoding (The Magic Step) ---
+    # Convert the target text to a vector
+    target_embedding = model.encode(target_text, convert_to_tensor=True)
+    
+    # Convert all other texts to vectors (in a batch)
+    corpus_embeddings = model.encode(other_texts, convert_to_tensor=True)
+
+    # --- Calculate Cosine Similarity ---
+    # Computes how close the vectors are in space
+    # returns a tensor of scores
+    cosine_scores = util.cos_sim(target_embedding, corpus_embeddings)[0]
+
+    # --- Format Results ---
+    results = []
+    for i in range(len(other_filenames)):
+        score = cosine_scores[i].item() # Convert tensor to float
+        results.append({
+            "Document": other_filenames[i],
+            "Alignment Score": score,
+            "Percentage": f"{score:.1%}"
+        })
+
+    # Sort by highest score first
+    results_df = pd.DataFrame(results).sort_values(by="Alignment Score", ascending=False)
+    
+    return results_df
+
+# --- Usage ---
+# Assuming 'all_documents' is the dictionary from the previous code block:
+
+target_file = "strategicplanning.docx"
+
+# Run the analysis
+alignment_report = calculate_semantic_alignment(all_documents, target_file)
+
+# Print the table
+print(f"Semantic Alignment with {target_file}:\n")
+print(alignment_report)
+
+```
 
 <br>
 
-https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/
+### How to Interpret the Output
+The code outputs a Pandas DataFrame (a nice table). Here is what the Alignment Score means:
+0.80 - 1.00: Highly Aligned. The documents are likely talking about the exact same topics, perhaps even reusing the same paragraphs.
+0.50 - 0.79: Moderately Aligned. They share the same context (e.g., both are about "Corporate Strategy" or "Q3 Goals"), but the specific content differs.
+0.20 - 0.49: Loosely Related. They might share a domain (e.g., "Business"), but the topics don't overlap much.
+< 0.20: Unrelated. One is about Strategy, the other is likely about something completely different, like a lunch menu or unrelated IT logs.
+
+####Important Note on Document Length
+The model used here (all-MiniLM-L6-v2) typically looks at the first 256–512 "tokens" (roughly 300-400 words) to form its impression of the document.
+
+If your documents are short: This works perfectly.
+If your documents are 50+ pages: It will only compare the introductions/summaries.
+
+The output now is as below:
+    ![angles2](/img/posts/angles2.png)
+
+Very interesting! Notice how tech4 (AI-Driven Innovation) is now first, by a good margin over the previous top ET (tech3 - Generative AI), better reflecting the ethos at GitHub. The rest of the candidates remain in the same order, although it's surprising that tech5 (Quantum ML) still does so poorly.
+
+```python
+
+```
+
+
+```python
+
+```
+
+
+
+
+
 
 
 
