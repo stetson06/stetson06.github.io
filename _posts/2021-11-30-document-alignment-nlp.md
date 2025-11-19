@@ -81,14 +81,16 @@ Once the installation finished, we then were poised to run the Python script as 
 
 Since the work we performed for our client was proprietary and/or classified, for this case study we will use a notional customer - *GitHub, Inc.* - and use their current vision statement found online as the target document.
 
-Also, for simplicity's sake, we will only involve five of the 24 emerging technology candidates in the NLP model, as listed below (for a total of six .docx files):
-# tech1 = Nonfungible Tokens (NFTs)
-# tech2 = Active Metadata Management
-# tech3 = Generative AI
-# tech4 = AI-Driven Innovation
-# tech5 = Quantum Machine Learning (Quantum ML)
+Also, for simplicity's sake, we will only involve five of the 24 emerging technology candidates in the NLP model, as listed below (for a total of six Word .docx files):
+*tech1 = Nonfungible Tokens (NFTs)*
+*tech2 = Active Metadata Management*
+*tech3 = Generative AI*
+*tech4 = AI-Driven Innovation*
+*tech5 = Quantum Machine Learning (Quantum ML)*
 
-Our Python code thus read as below:
+Just eyeballing the ETs, and given GitHub's mission/vision (i.e., *"To build the AI-native developer platform for the world."*), we would guess that tech3 (Generative AI) and and tech4 (AI-Driven Innovation) would have the highest alignment with GitHub, while tech1 (NFTs) would have the lowest. Let's see what happens!
+
+Our Python code begins as below to extract the text from all six Word files in our working directory (and any other .docx files therein!) and capture them as strings in a combined dictionary (a single object).
 
 ```python
 import os
@@ -177,11 +179,9 @@ def extract_text_including_tables(file_path):
     return '\n'.join(full_text)
 ```
 
-This results in a dictionary containing all the .docx files and text strings.
 
 
-
-
+This is when the fun really starts! We see here Python's scikit-learn library and the Vectorizer and cosine_similarity calculator at work. 
 
 <br>  
 ```python
@@ -281,6 +281,7 @@ This method is best for: Document-sorting, information retrieval, and finding do
 <br>
 
 https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/
+
 
 
 
