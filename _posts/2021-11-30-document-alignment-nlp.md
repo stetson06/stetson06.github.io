@@ -347,6 +347,10 @@ The output now is as below:
 <br>
     ![angles2](/img/posts/angles2.png)
 
+<br>
+    ![pareto](/img/posts/pareto.png)
+<br>
+
 Very interesting! Notice how tech4 (AI-Driven Innovation) is now first, by a good margin over the previous top ET (tech3 - Generative AI), better reflecting the ethos at GitHub. The rest of the candidates remain in the same order, although it's surprising that tech5 (Quantum ML) still does so poorly.
 
 So which is the better method, TF-IDF (old) or BERT (new)? They are compared in the table below:
@@ -356,6 +360,7 @@ So which is the better method, TF-IDF (old) or BERT (new)? They are compared in 
 Generally speaking, if we want to know if other documents reference the specific jargon used in target document, then use TF-IDF; but if we want to know if other documents support the goals of the target document (even if they describe them differently), use BERT, which reads for **meaning and context**.
 
 ___
+
 
 
 
