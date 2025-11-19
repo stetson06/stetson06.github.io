@@ -7,8 +7,8 @@ tags: [Deep Learning, Data Viz]
 ---
 
 # Overview of Project
-<br>    
-How would you use AI to determine how well certain text aligns with a base document? NLP in Python (Library: scikit-learn)!
+
+One time, a customer with a large R&D budget wanted some help identifying technologies for investment, given the overall organization's strategic plan, with its long-term goals and objectives. In effect, they asked us: "How would you use AI to determine how well certain text (descriptions of candidate technologies) aligns with a base document?" This was a no-brainer right off the bat - NLP in Python using the scikit-learn library!
 
 The general process is to first convert your base document and the candidate text into numerical representations (called vectors or embeddings), and then use a mathematical formula (like cosine similarity) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
 
@@ -45,6 +45,7 @@ print(f"Score for unrelated text: {scores[0][2]}") # e.g., 0.0
 <br>
 
 Best for: Document-sorting, information retrieval, and finding documents with similar keywords.
+
 
 
 
