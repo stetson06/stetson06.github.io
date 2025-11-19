@@ -180,7 +180,7 @@ def extract_text_including_tables(file_path):
 ```
 
 Below is what the output looks like:
-![strings](/img/posts/strings.png)
+    ![strings](/img/posts/strings.png)
 
 This is when the fun really starts! We see here Python's scikit-learn library and the Vectorizer and cosine_similarity calculator at work. 
 
@@ -282,6 +282,7 @@ This method is best for: Document-sorting, information retrieval, and finding do
 <br>
 
 https://www.zdnet.com/article/gartner-releases-its-2021-emerging-tech-hype-cycle-heres-whats-in-and-headed-out/
+
 
 
 
