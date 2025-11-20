@@ -39,6 +39,12 @@ We first looked up the organization's current vision/strategic planning document
 |Employee Communications Applications| | |
 
 <br>
+
+When these ETs are plotted out across the near future (based on expected arrival of the technology), it looked like this:
+<br>
+    ![angles2](/img/posts/angles2.png)
+
+<br>
 Each ET had a description that was captured in a separate Word file. An example for one of the ETs, "Generative AI", is captured below:
 <br>
 **Generative AI: AI techniques that learn from existing artifacts to generate new, realistic content (images, text, audio, code) that reflects the characteristics of the training data but does not repeat it.** (In 2021, this was just beginning to rise significantly).
@@ -362,6 +368,7 @@ So **which is the better method**, TF-IDF (old) or BERT (new)? They are compared
 Generally speaking, if we want to know if other documents reference the specific jargon used in target document, then use TF-IDF; but if we want to know if other documents support the goals of the target document (even if they describe them differently), use BERT, which reads for **meaning and context**.
 
 ___
+
 
 
 
