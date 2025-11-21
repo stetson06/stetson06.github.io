@@ -82,6 +82,7 @@ Also, for simplicity's sake, we will only involve five of the 24 emerging techno
 |tech3|Generative AI|
 |tech4|AI-Driven Innovation|
 |tech5|Quantum Machine Learning (Quantum ML)|
+
 <br>
 Just eyeballing the ETs, and given GitHub's mission/vision (i.e., *"To build the AI-native developer platform for the world."*), we would guess that tech3 (Generative AI) and and tech4 (AI-Driven Innovation) would have the highest alignment with GitHub, while tech1 (NFTs) would have the lowest. Let's see what happens!
 
@@ -370,6 +371,7 @@ So **which is the better method**, TF-IDF (old) or BERT (new)? They are compared
 Generally speaking, if we want to know if other documents reference the specific jargon used in target document, then use TF-IDF; but if we want to know if other documents support the goals of the target document (even if they describe them differently), use BERT, which reads for **meaning and context**.
 
 ___
+
 
 
 
