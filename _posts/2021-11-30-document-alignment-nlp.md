@@ -74,6 +74,7 @@ Once the installation finished, we then were poised to run the Python script as 
 Since the work we performed for our client was proprietary and/or classified, for this case study we will use a notional customer - *GitHub, Inc.* - and use their current vision statement found online as the target document.
 
 Also, for simplicity's sake, we will only involve five of the 24 emerging technology candidates in the NLP model, as listed below (for a total of six Word .docx files):
+
 |Candidate Name |Emerging Technology |
 |:---|:---|
 |tech1|Nonfungible Tokens (NFTs)|
@@ -369,6 +370,7 @@ So **which is the better method**, TF-IDF (old) or BERT (new)? They are compared
 Generally speaking, if we want to know if other documents reference the specific jargon used in target document, then use TF-IDF; but if we want to know if other documents support the goals of the target document (even if they describe them differently), use BERT, which reads for **meaning and context**.
 
 ___
+
 
 
 
