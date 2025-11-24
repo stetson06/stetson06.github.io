@@ -370,12 +370,13 @@ So **which is the better method**, TF-IDF (old) or BERT (new)? They are compared
 
 Generally speaking, if we want to know if other documents reference the specific jargon used in target document, then use TF-IDF; but if we want to know if other documents support the goals of the target document (even if they describe them differently), use BERT, which reads for **meaning and context**.
 
-
+<br>
 # Growth & Next Steps
 
 Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of parameters involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
 
 ___
+
 
 
 
