@@ -9,7 +9,7 @@ plugins:
 #-------------------------------
 # General Site Settings
 title: Charlie H. Kim
-description: "Hi I'm Charlie and am passionate about efficiently employing tools and techniques across the entire business intelligence/data science spectrum to add business value. My portfolio contains summaries of some interesting projects I've undertaken over the years. Hope you enjoy them! Thanks to StackEdit for making it so easy to create the underlying Markdown language for each project. Please visit my GitHub & LinkedIn pages (or download my Resume) by using the links below."
+description: "Hi I'm Charlie and am passionate about efficiently employing the latest tools and techniques across the entire AI/data science spectrum to add business value. My portfolio contains summaries of some interesting projects I've undertaken over the years. Hope you enjoy them! Thanks to StackEdit for making it so easy to create the underlying Markdown language for each project. Please visit my GitHub & LinkedIn pages (or download my Resume) by using the links below."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -51,6 +51,7 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 
 
 
