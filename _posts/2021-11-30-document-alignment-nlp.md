@@ -40,7 +40,7 @@ We first looked up the organization's current vision/strategic planning document
 
 <br>
 
-When these ETs are plotted out across the near future (based on expected arrival of the technology), it looked like this:
+When these ETs are plotted out across the near future (based on where the technology was on the Hype Cycle when Gartner published their document in the summer of 2021), it looked like this:
 <br>
     ![gartner](/img/posts/gartner.png)
 
@@ -376,6 +376,7 @@ Generally speaking, if we want to know if other documents reference the specific
 Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of parameters involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
 
 ___
+
 
 
 
