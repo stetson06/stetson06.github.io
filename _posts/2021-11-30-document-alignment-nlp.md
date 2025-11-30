@@ -155,7 +155,7 @@ for name, content in all_documents.items():
 <br>
 Important Limitation (Tables)
 <br>
-The standard doc.paragraphs loop shown above reads the body text. It often skips text inside tables. So if our documents had relied heavily on tables (which they didn't), then we also would have had to iterate through doc.tables. Here is how we would haved modified the extract_text_from_docx function to include table text:
+The standard doc.paragraphs loop shown above reads the body text. It often skips text inside tables. So if our documents had relied heavily on tables (which they didn't), then we also would have had to iterate through doc.tables. Here is how we would have modified the extract_text_from_docx function to include table text:
 
 ```python
 def extract_text_including_tables(file_path):
@@ -376,6 +376,7 @@ Generally speaking, if we want to know if other documents reference the specific
 Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of parameters involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
 
 ___
+
 
 
 
