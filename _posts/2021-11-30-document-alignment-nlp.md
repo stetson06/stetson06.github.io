@@ -15,7 +15,7 @@ The general process, common to both, is to first convert the target/base documen
 <br>  
 # Old School NLP Technique
 
-We first will show how to use the Classic Method (*TF-IDF + Cosine Similarity*) - this method is great for matching keywords and topics but doesn't understand the meaning or context of the words. This Classic Method works by counting how many times important words appear. Before the age of AI and Deep Learning, this was the industry standard for text comparison. 
+We first will show how to use the Classic Method (*TF-IDF + Cosine Similarity*) - this method is great for matching keywords and topics but doesn't understand the meaning or context of the words. This Classic Method works by counting how many times important words appear. Before recent advancements in Deep Learning, this was the industry standard for text comparison. 
 
 This method treats documents as a "bags of words." It calculates alignment based on keyword overlap, statistically weighing unique words (like "Synergy" or "Q3-Revenue") higher than common words (like "the" or "is").
 
@@ -373,9 +373,10 @@ Generally speaking, if we want to know if other documents reference the specific
 <br>
 # Growth & Next Steps
 
-Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of parameters involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
+Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of trainable parameters and/or neural network layers involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
 
 ___
+
 
 
 
