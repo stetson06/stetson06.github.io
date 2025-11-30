@@ -50,7 +50,7 @@ Each ET had a description that was captured in a separate Word file. An example 
 <br>
 **Generative AI: AI techniques that learn from existing artifacts to generate new, realistic content (images, text, audio, code) that reflects the characteristics of the training data but does not repeat it.** (In 2021, this was just beginning to rise significantly).
 
-We posted all the Word files onto our working repository, ready for Python to come calling!
+We posted all the Word files onto our working repository, ready for Python to do its thing (through us, of course)!
 
 To code this all up, we first had to install the required library:
 ```
@@ -376,6 +376,7 @@ Generally speaking, if we want to know if other documents reference the specific
 Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of parameters involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
 
 ___
+
 
 
 
