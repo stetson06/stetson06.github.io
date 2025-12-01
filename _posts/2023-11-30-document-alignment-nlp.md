@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Estimating Semantic Alignment Using Natural Language Processing (NLP) and Generative AI (Transformers)
+title: Estimating Semantic Alignment Using Natural Language Processing and Generative AI
 image: "/posts/folders.jpg"
 tags: [Deep Learning, Data Viz]
 
 ---
 
 # Overview of Project
-
+<br>
 A customer with a large R&D budget wanted some help identifying the latest technologies for investment as well as prioritizing them in relation to their organization's strategic vision and plan. In effect, they asked us: **"How would you use AI to determine how well certain text (i.e., descriptions of candidate technologies) aligns with a target document (i.e., our strategic plan document)?"** We soon determined the best analytical methodology would be to leverage *Natural Language Processing (NLP)* in Python using the scikit-learn library or an *Artificial Neual Network*! We discuss both in this case study.
 
 The general process, common to both, is to first convert the target/base document and the candidate text into numerical representations (called *vectors* or *embeddings*), and then use a mathematical formula (like *cosine similarity*) to calculate how "close" those vectors are to each other. A score close to 1.0 means high alignment, while a score close to 0.0 means low alignment.
@@ -376,6 +376,7 @@ Generally speaking, if we want to know if other documents reference the specific
 Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of trainable parameters and/or neural network layers involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
 
 ___
+
 
 
 
