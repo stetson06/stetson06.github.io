@@ -2,7 +2,7 @@
 layout: post
 title: Predicting Customer Loyalty Using ML
 image: "/posts/regression-title-img.png"
-tags: [Customer Loyalty, Machine Learning, Regression, Python]
+tags: [Machine Learning, Regression, Python, Data Science]
 ---
 
 Our client, a grocery retailer, hired a market research consultancy to append market level customer loyalty information to the database.  However, only around 50% of the client's customer base could be tagged, thus the other half did not have this information present.  Let's use ML to predict the missing values!
@@ -1165,6 +1165,7 @@ We could even look to tune the hyperparameters of the Random Forest, notably reg
 
 
 From a data point of view, further variables could be collected, and further feature engineering could be undertaken to ensure that we have as much useful information available for predicting customer loyalty.
+
 
 
 
