@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Creating an Image Search Engine: Transfer Learning with VGG16
+title: Creating an Image Search Engine - Transfer Learning with VGG16
 image: "/posts/dl-search-engine-title-img.png"
 tags: [Deep Learning, CNN, Data Science, Computer Vision, Python]
 ---
@@ -471,6 +471,7 @@ We only looked at Cosine Similarity here - it would be interesting to investigat
 It would be beneficial to come up with a way to quantify the quality of the search results. This could come from customer feedback or from click-through rates on the site.
 
 Finally, here we utilized VGG16 - it would be worthwhile to test other available pre-trained networks, such as ResNet, Inception, and DenseNet networks, to see how they perform.
+
 
 
 
