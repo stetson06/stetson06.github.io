@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Fruit Classification Using a Convolutional Neural Network
-image: "/posts/cnn-fruit-classification-title-img.png"
+image: "/posts/cnn_fruit_image.png"
 tags: [CNN, Transfer Learning, Hyper-Parameter Tuning, Image Augmentation]
 ---
 
@@ -1360,5 +1360,6 @@ ___
 The proof of concept was successful - we have shown that we can get very accurate predictions, albeit on a small number of classes. We need to showcase this to the client, discuss what it is that makes the network more robust, and then look to test our best networks on a larger array of classes.
 
 Transfer Learning was a big success - the best-performing network in terms of classification accuracy on the Test Set. However, we still only trained for a small number of epochs, so we can push this even further. It would be worthwhile to test other available pre-trained networks such as ResNet, Inception, and DenseNet networks.
+
 
 
