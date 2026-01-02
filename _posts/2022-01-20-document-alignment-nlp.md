@@ -245,7 +245,6 @@ tfidf_report = calculate_tfidf_alignment(all_documents, target_file)
 
 print(f"Keyword Alignment with {target_file}:\n")
 print(tfidf_report)
-
 ```
 
 The output is as below:
@@ -382,62 +381,3 @@ Generally speaking, if we want to know if other documents reference the specific
 Consulting current LLMs may prove fruitful in shedding light on more efficient ways to conduct this project using Sentence Transformers (the current "cutting-edge" technique). Advancements in Generative AI promise to provide even more advanced techniques to gauge semantic alignment in the coming years - perhaps with more processing power, there will be more "depth" to the "deep learning" in terms of increased # of trainable parameters and/or neural network layers involved for better model training or even a paradigm shift that a brilliant programmer will devise that will shift the landscape on what is considered the "best" or new "cutting-edge" methodology. So let's be on the lookout for this - the future is bright!
 
 ___
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
