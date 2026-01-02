@@ -104,7 +104,7 @@ We randomly split the images for each fruit into the training (60%), validation 
 Examples of four images of each fruit class can be seen in the image below:
 
 <br>
-![alt text](/img/posts/cnn-image-examples.png "CNN Fruit Classification Samples")
+    ![alt text](/img/posts/cnn-image-examples.png "CNN Fruit Classification Samples")
 
 <br>
 For ease of use in Keras, our folder structure first splits into training, validation, and test directories, and within each of those is split again into directories based upon the six fruit classes.
@@ -126,7 +126,6 @@ In the code below, we:
 
 <br>
 ```python
-
 # import the required python libraries
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Activation, Flatten, Dense
@@ -156,7 +155,6 @@ validation_set = validation_generator.flow_from_directory(directory = validation
                                                                       target_size = (img_width, img_height),
                                                                       batch_size = batch_size,
                                                                       class_mode = 'categorical')
-
 ```
 <br>
 We specify that we will resize the images down to 128 x 128 pixels, and that we will pass in 32 images at a time (known as the batch size) for training.
@@ -199,7 +197,6 @@ ___
 Our baseline network is simple, but gives us a starting point to refine from.  This network contains **2 Convolutional Layers**, each with **32 filters** and subsequent **Max Pooling** Layers.  We have a **single Dense (Fully Connected) layer** following flattening with **32 neurons** followed by our output layer.  We apply the **relu** activation function on all layers, and use the **adam** optimizer.
 
 ```python
-
 # network architecture
 model = Sequential()
 
@@ -226,13 +223,11 @@ model.compile(loss = 'categorical_crossentropy',
 
 # view network architecture
 model.summary()
-
 ```
 <br>
 The below shows us more clearly our baseline architecture:
 
 ```
-
 Model: "sequential"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
@@ -263,7 +258,6 @@ Total params: 1,058,950
 Trainable params: 1,058,950
 Non-trainable params: 0
 _________________________________________________________________
-
 ```
 
 <br>
@@ -279,7 +273,6 @@ In the below code we:
 * Train the network and save the results to an object called *history*
 
 ```python
-
 # training parameters
 num_epochs = 50
 model_filename = 'models/fruits_cnn_v01.h5'
@@ -297,7 +290,6 @@ history = model.fit(x = training_set,
                     batch_size = batch_size,
                     epochs = num_epochs,
                     callbacks = [save_best_model])
-
 ```
 <br>
 The ModelCheckpoint callback that has been put in place means that we do not just save the *final* network at epoch 50, but instead we save the *best* network, in terms of validation set performance - from *any point* during training.  In other words, at the end of each of the 50 epochs, Keras will assess the performance on the validation set and if is has not seen any improvement in performance it will do nothing. If it does see an improvement however, it will update the network file that is saved on our hard-drive.
@@ -308,7 +300,6 @@ The ModelCheckpoint callback that has been put in place means that we do not jus
 As we saved our training process to the *history* object, we can now analyze the performance (Classification Accuracy and Loss) of the network epoch by epoch.
 
 ```python
-
 import matplotlib.pyplot as plt
 
 # plot validation results
@@ -325,13 +316,12 @@ plt.show()
 
 # get best epoch performance for validation accuracy
 max(history.history['val_accuracy'])
-
 ```
 <br>
 The below image contains two plots, the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange) and the second showing the epoch by epoch **Classification Accuracy** again, for both the training set (blue) and the validation set (orange).
 
 <br>
-![alt text](/img/posts/cnn-baseline-accuracy-plot.png "CNN Baseline Accuracy Plot")
+    ![alt text](/img/posts/cnn-baseline-accuracy-plot.png "CNN Baseline Accuracy Plot")
 
 <br>
 There are two key learnings from above plots. The first is that, with this baseline architecture and the parameters we set for training, we are reaching our best performance in around 10-20 epochs - after that, not much improvement is seen. This isn't to say that 50 epochs is wrong, especially if we change our network - but it is interesting to note at this point.
@@ -366,7 +356,6 @@ In the below code we run this in isolation from training. We:
 * Create a Pandas DataFrame to hold all prediction data
 
 ```python
-
 # import required packages
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
@@ -412,14 +401,10 @@ predicted_probabilities = []
 filenames = []
 
 for folder in folder_names:
-    
     images = listdir(source_dir + '/' + folder)
-    
     for image in images:
-        
         processed_image = preprocess_image(source_dir + '/' + folder + '/' + image)
         predicted_label, predicted_probability = make_prediction(processed_image)
-        
         actual_labels.append(folder)
         predicted_labels.append(predicted_label)
         predicted_probabilities.append(predicted_probability)
@@ -432,7 +417,6 @@ predictions_df = pd.DataFrame({"actual_label" : actual_labels,
                                "filename" : filenames})
 
 predictions_df['correct'] = np.where(predictions_df['actual_label'] == predictions_df['predicted_label'], 1, 0)
-
 ```
 <br>
 After running the code above, we end up with a Pandas DataFrame containing prediction data for each test set image. A random sample of this can be seen in the table below:
@@ -465,11 +449,9 @@ This dataset is extremely useful as we can not only calculate our classification
 Using our DataFrame, we can calculate our overall Test Set classification accuracy using the below code:
 
 ```python
-
 # overall test set accuracy
 test_set_accuracy = predictions_df['correct'].sum() / len(predictions_df)
 print(test_set_accuracy)
-
 ```
 <br>
 Our baseline network achieves a **75% Classification Accuracy** on the Test Set. It will be interesting to see how much improvement we can this with additions & refinements to our network.
@@ -484,17 +466,14 @@ As we saw above, our Classification Accuracy for the whole test set was 75%, but
 We can create a Confusion Matrix with the below code:
 
 ```python
-
 # confusion matrix (percentages)
 confusion_matrix = pd.crosstab(predictions_df['predicted_label'], predictions_df['actual_label'], normalize = 'columns')
 print(confusion_matrix)
-
 ```
 <br>
 This results in the following output:
 
 ```
-
    actual_label   apple  avocado  banana  kiwi  lemon  orange
 predicted_label                                             
 apple              0.8      0.0     0.0   0.1    0.0     0.1
@@ -503,7 +482,6 @@ banana             0.0      0.0     0.2   0.1    0.0     0.0
 kiwi               0.0      0.0     0.1   0.7    0.0     0.0
 lemon              0.2      0.0     0.7   0.0    1.0     0.1
 orange             0.0      0.0     0.0   0.1    0.0     0.8
-
 ```
 <br>
 Across the top are our *actual* classes and down the side are our *predicted* classes - so counting *down* the columns we can get the Classification Accuracy (%) for each class, and we can see where it is getting confused.
@@ -551,7 +529,6 @@ In a Convolutional Neural Network, such as in our task here, it is generally a b
 In our task here, we only have one Dense Layer, so we apply Dropout to that layer only. A common proportion to apply (i.e. the proportion of neurons in the layer to be deactivated randomly during each pass) is 0.5 or 50%.  We will apply this here.
 
 ```python
-
 model = Sequential()
 
 model.add(Conv2D(filters = 32, kernel_size = (3, 3), padding = 'same', input_shape = (img_width, img_height, num_channels)))
@@ -570,7 +547,6 @@ model.add(Dropout(0.5))
 
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
-
 ```
 
 <br>
@@ -588,7 +564,7 @@ With the baseline network we saw very strong overfitting in action - it will be 
 The below image shows the same two plots we analyzed for the updated network, the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange) with the second showing the epoch by epoch **Classification Accuracy** again, for both the training set (blue) and the validation set (orange).
 
 <br>
-![alt text](/img/posts/cnn-dropout-accuracy-plot.png "CNN Dropout Accuracy Plot")
+    ![alt text](/img/posts/cnn-dropout-accuracy-plot.png "CNN Dropout Accuracy Plot")
 
 <br>
 Firstly, we can see a peak Classification Accuracy on the validation set of around **89%** which is higher than the **83%** we saw for the baseline network.
@@ -617,7 +593,6 @@ The standout insight for the baseline network was that Bananas has only a 20% Cl
 Running the same code from the baseline section on results for our updated network, we get the following output for Confusion Matrix:
 
 ```
-
 actual_label     apple  avocado  banana  kiwi  lemon  orange
 predicted_label                                             
 apple              0.8      0.0     0.0   0.0    0.0     0.0
@@ -626,7 +601,6 @@ banana             0.0      0.0     0.7   0.0    0.0     0.0
 kiwi               0.2      0.0     0.0   0.7    0.0     0.1
 lemon              0.0      0.0     0.2   0.0    1.0     0.0
 orange             0.0      0.0     0.0   0.1    0.0     0.9
-
 ```
 <br>
 Along the top are our *actual* classes and down the side are our *predicted* classes - so counting *down* the columns we can get the Classification Accuracy (%) for each class, and we can see where it is getting confused.
@@ -676,7 +650,6 @@ When setting up and training the Baseline & Dropout networks, we used the ImageG
 In the code below, we add these transformations in and specify the magnitudes that we want applied for each parameter:
 
 ```python
-
 # image generators
 training_generator = ImageDataGenerator(rescale = 1./255,
                                         rotation_range = 20,
@@ -686,7 +659,6 @@ training_generator = ImageDataGenerator(rescale = 1./255,
                                         horizontal_flip = True,
                                         brightness_range = (0.5,1.5),
                                         fill_mode = 'nearest')
-
 ```
 <br>
 We apply a **rotation_range** of 20. This is the *degrees* of rotation, and it dictates the *maximum* amount of rotation that we want. In other words, a rotation value will be randomly selected for each image, each epoch, between negative and positive 20 degrees, and whatever is selected, this is what will be applied.
@@ -723,7 +695,7 @@ With the Baseline network we saw very strong overfitting in action - it will be 
 The below image shows the same two plots we analysed for the updated network, the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange) with the second showing the epoch by epoch **Classification Accuracy** again, for both the training set (blue) and the validation set (orange).
 
 <br>
-![alt text](/img/posts/cnn-augmentation-accuracy-plot.png "CNN Dropout Accuracy Plot")
+    ![alt text](/img/posts/cnn-augmentation-accuracy-plot.png "CNN Dropout Accuracy Plot")
 
 <br>
 Firstly, we can see a peak Classification Accuracy on the validation set of around **97%**, which is higher than the **83%** we saw for the Baseline network and higher than the **89%** we saw for the network with Dropout added.
@@ -754,7 +726,6 @@ The standout insight for the Baseline network was that Bananas has only a 20% Cl
 Running the same code from the baseline section on results for our updated network, we get the following Confusion Matrix output:
 
 ```
-
 actual_label     apple  avocado  banana  kiwi  lemon  orange
 predicted_label                                             
 apple              0.9      0.0     0.0   0.0    0.0     0.0
@@ -763,7 +734,6 @@ banana             0.1      0.0     0.8   0.0    0.0     0.0
 kiwi               0.0      0.0     0.0   0.9    0.0     0.0
 lemon              0.0      0.0     0.2   0.0    1.0     0.0
 orange             0.0      0.0     0.0   0.1    0.0     1.0
-
 ```
 <br>
 Along the top are our *actual* classes and down the side are our *predicted* classes - so counting *down* the columns we can get the Classification Accuracy (%) for each class, and we can see where it is getting confused.
@@ -811,7 +781,6 @@ Once we have this, we can then create that particular architecture, train the ne
 Our data pipeline will remain the same as it was when applying Image Augmentation. The code below shows this as well as the extra packages we need to load for Keras-Tuner.
 
 ```python
-
 # import the required python libraries
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Activation, Flatten, Dense, Dropout
@@ -844,7 +813,6 @@ validation_set = validation_generator.flow_from_directory(directory = validation
                                                                       target_size = (img_width, img_height),
                                                                       batch_size = batch_size,
                                                                       class_mode = 'categorical')
-
 ```
 
 <br>
@@ -864,7 +832,6 @@ We then make use of several built-in bits of logic to specify what we want to te
 * Optimizer - Adam or RMSProp
 
 ```python
-
 # network architecture
 def build_model(hp):
     model = Sequential()
@@ -899,7 +866,6 @@ def build_model(hp):
                   metrics = ['accuracy'])
     
     return model
-
 ```
 <br>
 Once we have the testing logic in place, we want to put in place the specifications for the search!
@@ -913,7 +879,6 @@ In the code below, we set parameters to:
 * Set the details for the output of logging results
 
 ```python
-
 # search parameters
 tuner = RandomSearch(hypermodel = build_model,
                      objective = 'val_accuracy',
@@ -922,7 +887,6 @@ tuner = RandomSearch(hypermodel = build_model,
                      directory = os.path.normpath('C:/'),
                      project_name = 'fruit-cnn',
                      overwrite = True)
-
 ```
 <br>
 With the search parameters in place, we now want to put this into action.
@@ -934,13 +898,11 @@ In the below code, we:
 * Specify the batch size for training
 
 ```python
-
 # execute search
 tuner.search(x = training_set,
              validation_data = validation_set,
              epochs = 40,
              batch_size = 32)
-
 ```
 <br>
 Depending on how many configurations are to be tested, how many epochs are required for each, and the speed of processing, this can take a long time, but the results will most definitely guide us toward a more optimal architecture!
@@ -951,7 +913,6 @@ Depending on how many configurations are to be tested, how many epochs are requi
 Based upon the tested network architectures, the best in terms of validation accuracy is one that contains **3 Convolutional Layers**. The first has **96 filters** and the subsequent two has **64 filters** each. Each of these three convolutional layers has an accompanying MaxPooling Layer (this wasn't tested). The network then has **1 Dense (Fully Connected) Layer** following flattening with **160 neurons** with **Dropout applied**, followed by our output layer. The chosen optimizer was **Adam**.
 
 ```python
-
 # network architecture
 model = Sequential()
 
@@ -980,7 +941,6 @@ model.add(Activation('softmax'))
 model.compile(loss = 'categorical_crossentropy',
               optimizer = 'adam',
               metrics = ['accuracy'])
-
 ```
 <br>
 The below table captures the details of our optimized architecture:
@@ -1023,7 +983,6 @@ Total params: 2,717,542
 Trainable params: 2,717,542
 Non-trainable params: 0
 _________________________________________________________________
-
 ```
 
 <br>
@@ -1042,7 +1001,7 @@ As we again saved our training process to the *history* object, we can now analy
 The below image shows the same two plots for this tuned network, the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange), with the second showing **Classification Accuracy** for the same.
 
 <br>
-![alt text](/img/posts/cnn-tuned-accuracy-plot.png "CNN Tuned Accuracy Plot")
+    ![alt text](/img/posts/cnn-tuned-accuracy-plot.png "CNN Tuned Accuracy Plot")
 
 <br>
 Firstly, we can see a peak Classification Accuracy on the validation set of around **98%** which is the highest we have seen from all the networks so far, just higher than the 97% we saw for the addition of Image Augmentation to our Baseline network.
@@ -1071,7 +1030,6 @@ Our 95% Test Set accuracy at an *overall* level tells us that we don't have too 
 Running the same code from the baseline section on results for our updated network, we get the following output:
 
 ```
-
 actual_label     apple  avocado  banana  kiwi  lemon  orange
 predicted_label                                             
 apple              0.9      0.0     0.0   0.0    0.0     0.0
@@ -1080,7 +1038,6 @@ banana             0.0      0.0     0.9   0.0    0.0     0.0
 kiwi               0.0      0.0     0.0   0.9    0.0     0.0
 lemon              0.0      0.0     0.0   0.0    1.0     0.0
 orange             0.0      0.0     0.0   0.1    0.0     1.0
-
 ```
 <br>
 Along the top are our *actual* classes and down the side are our *predicted* classes - so counting *down* the columns, we can get the Classification Accuracy (%) for each class and we can see where it is getting confused.
@@ -1112,7 +1069,7 @@ The hope is that the features which have already been learned will be good enoug
 For our Fruit Classification task, we will be utilizing a famous network known as **VGG16**. This was designed back in 2014, but even by today's standards, it is still a fairly heft network. It was trained on the famous *ImageNet* dataset, with over a million images across one thousand different image classes - everything from goldfish to cauliflowers to bottles of wine to scuba divers!
 
 <br>
-![alt text](/img/posts/vgg16-architecture.png "VGG16 Architecture")
+    ![alt text](/img/posts/vgg16-architecture.png "VGG16 Architecture")
 
 <br>
 The VGG16 network won the 2014 ImageNet competition, meaning that it predicted more accurately than any other model on that set of images (although this has now been surpassed).
@@ -1127,7 +1084,6 @@ All the hard work has been done, so we just want to "transfer" those "learnings"
 Our data pipeline will remain *mostly* the same as it was when applying our own custom built networks - but there are some subtle changes. In the code below we need to import VGG16 and the custom preprocessing logic that it uses. We also need to send our images in with the size 224 x 224 pixels, as this is what VGG16 expects. Otherwise, the logic stays as is.
 
 ```python
-
 # import the required python libraries
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Activation, Flatten, Dense, Dropout
@@ -1166,7 +1122,6 @@ validation_set = validation_generator.flow_from_directory(directory = validation
                                                                       target_size = (img_width, img_height),
                                                                       batch_size = batch_size,
                                                                       class_mode = 'categorical')
-
 ```
 
 <br>
@@ -1179,7 +1134,6 @@ We then need to specify that we *do not* want the imported layers to be re-train
 The original VGG16 network architecture contains two massive Dense Layers near the end, each with 4096 neurons. Since our task of classiying 6 types of fruit is more simplistic than the original 1000 ImageNet classes, we reduce this down and instead implement two Dense Layers with 128 neurons each, followed by our output layer.
 
 ```python
-
 # network architecture
 vgg = VGG16(input_shape = (img_width, img_height, num_channels), include_top = False)
 
@@ -1203,7 +1157,6 @@ model.compile(loss = 'categorical_crossentropy',
 
 # view network architecture
 model.summary()
-
 ```
 <br>
 The below shows us our final architecture:
@@ -1262,7 +1215,6 @@ Total params: 17,943,366
 Trainable params: 3,228,678
 Non-trainable params: 14,714,688
 _________________________________________________________________
-
 ```
 
 <br>
@@ -1281,7 +1233,7 @@ As we again saved our training process to the *history* object, we can now analy
 The below image shows the same two plots we analyzed for the previous networks, the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange), with the second showing the same for **Classification Accuracy**.
 
 <br>
-![alt text](/img/posts/cnn-vgg16-accuracy-plot.png "VGG16 Accuracy Plot")
+    ![alt text](/img/posts/cnn-vgg16-accuracy-plot.png "VGG16 Accuracy Plot")
 
 <br>
 Firstly, we can see a peak Classification Accuracy on the validation set of around **98%** which is equal to the highest we have seen from all previous networks so far, but what is impressive is that it achieved this in only 10 epochs!
@@ -1308,7 +1260,6 @@ Our 98% Test Set accuracy at an *overall* level tells us that we don't have too 
 Running the same code from the baseline section on results for our updated network, we get the following output:
 
 ```
-
 actual_label     apple  avocado  banana  kiwi  lemon  orange
 predicted_label                                             
 apple              1.0      0.0     0.0   0.0    0.0     0.0
@@ -1317,7 +1268,6 @@ banana             0.0      0.0     1.0   0.0    0.0     0.0
 kiwi               0.0      0.0     0.0   1.0    0.0     0.0
 lemon              0.0      0.0     0.0   0.0    0.9     0.0
 orange             0.0      0.0     0.0   0.0    0.1     1.0
-
 ```
 <br>
 Along the top are our *actual* classes and down the side are our *predicted* classes - so counting *down* the columns we can get the Classification Accuracy (%) for each class and we can see where it is getting confused.
@@ -1360,6 +1310,3 @@ ___
 The proof of concept was successful - we have shown that we can get very accurate predictions, albeit on a small number of classes. We need to showcase this to the client, discuss what it is that makes the network more robust, and then look to test our best networks on a larger array of classes.
 
 Transfer Learning was a big success - the best-performing network in terms of classification accuracy on the Test Set. However, we still only trained for a small number of epochs, so we can push this even further. It would be worthwhile to test other available pre-trained networks such as ResNet, Inception, and DenseNet networks.
-
-
-
