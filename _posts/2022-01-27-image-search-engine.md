@@ -85,7 +85,7 @@ For our proof of concept, we are working in only one section of the client's pro
 We have been provided with images of the 300 shoes that are currently available to purchase. A random selection of 18 of these can be seen in the image below.
 
 <br>
-![alt text](/img/posts/search-engine-image-examples.png "Deep Learning Search Engine - Image Examples")
+    ![alt text](/img/posts/search-engine-image-examples.png "Deep Learning Search Engine - Image Examples")
 
 <br>
 We will need to extract and capture the "features" of this base image set and compare them to the "features" found in any given search image. The images with the closest match will be returned to the customer!
@@ -107,7 +107,7 @@ The hope is that the features which have already been learned will be good enoug
 For our Shoe Classification task, we will be utilizing a famous network known as **VGG16**. This was designed back in 2014, but even by today's standards is still a fairly heft network. It was trained on the famous *ImageNet* dataset, with over a million images across one thousand different image classes - everything from goldfish to cauliflowers to bottles of wine to scuba divers!
 
 <br>
-![alt text](/img/posts/vgg16-architecture.png "VGG16 Architecture")
+    ![alt text](/img/posts/vgg16-architecture.png "VGG16 Architecture")
 
 <br>
 The VGG16 network won the 2014 ImageNet competition, meaning that it predicted more accurately than any other model on that set of images (although this has now been surpassed).
@@ -139,7 +139,6 @@ In the code below, we:
 
 <br>
 ```python
-
 # import the required python libraries
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
@@ -161,13 +160,11 @@ model = Model(inputs = vgg.input, outputs = vgg.layers[-1].output)
 
 # save model file
 model.save('models/vgg16_search_engine.h5')
-
 ```
 <br>
 The architecture can be seen below:
 <br>
 ```
-
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
@@ -215,7 +212,6 @@ Total params: 14,714,688
 Trainable params: 14,714,688
 Non-trainable params: 0
 _________________________________________________________________
-
 ```
 <br>
 If we hadn't added that last parameter of "pooling = avg", then the final layer would have been that MaxPoolingLayer of shape 7 by 7 by 512. Instead, the Global Average Pooling logic was added, and this means we get that single array that is of size 512. In other words, all of the feature maps from that final Max Pooling layer are summarized down into one vector of 512 numbers - for each image these numbers will represent its features. This feature vector is what we will be using to compare our base set of images with any given search image to assess the similarity!
@@ -230,7 +226,6 @@ ___
 Here we create two useful functions, one for pre-processing images prior to entering the network and the other for featurizing the image (i.e., passing the image through the VGG16 network and receiving the output, a single vector of 512 numeric values).
 
 ```python
-
 # image pre-processing function
 def preprocess_image(filepath):
     
@@ -247,7 +242,6 @@ def featurize_image(image):
     feature_vector = model.predict(image)
     
     return feature_vector
-
 ```
 <br>
 The *preprocess_image* function does the following:
@@ -275,14 +269,12 @@ In the code below, we:
 * Set up an empty array to append our base-set feature vectors
 
 ```python
-
 # source directory for base images
 source_dir = 'data/'
 
 # empty objects to append to
 filename_store = []
 feature_vector_store = np.empty((0,512))
-
 ```
 
 <br>
@@ -291,7 +283,6 @@ feature_vector_store = np.empty((0,512))
 We now want to preprocess and feature all 300 images in our base-set. To do this, we execute a loop and apply the two functions we created earlier. For each image, we append the filename and the feature vector to stores. We then save these stores for future use when a search is executed.
 
 ```python
-
 # pass in & featurize base image set
 for image in listdir(source_dir):
     
@@ -312,7 +303,6 @@ for image in listdir(source_dir):
 # save key objects for future use
 pickle.dump(filename_store, open('models/filename_store.p', 'wb'))
 pickle.dump(feature_vector_store, open('models/feature_vector_store.p', 'wb'))
-
 ```
 
 ___
@@ -332,7 +322,6 @@ In the code below, we:
 * Specify the number of search results we want
 
 ```python
-
 # load in required objects
 model = load_model('models/vgg16_search_engine.h5', compile = False)
 filename_store = pickle.load(open('models/filename_store.p', 'rb'))
@@ -341,13 +330,12 @@ feature_vector_store = pickle.load(open('models/feature_vector_store.p', 'rb'))
 # search parameters
 search_results_n = 8
 search_image = 'search_image_02.jpg'
-
 ```
 <br>
 The search image we are going to use for illustration here is below:
 
 <br>
-![alt text](/img/posts/search-engine-search1.jpg "VGG16 Architecture")
+    ![alt text](/img/posts/search-engine-search1.jpg "VGG16 Architecture")
 
 <br>
 #### Preprocess and Featurize Search Image
@@ -355,11 +343,9 @@ The search image we are going to use for illustration here is below:
 Using the same helper functions, we apply the preprocessing and featurizing logic to the search image - the output again being a vector containing 512 numeric values.
 
 ```python
-
 # preprocess & featurize search image
 preprocessed_image = preprocess_image(search_image)
 search_feature_vector = featurize_image(preprocessed_image)
-
 ```
 
 <br>
@@ -384,7 +370,6 @@ In the code below, we:
 * Create a list of filenames for the eight most similar base-set images
 
 ```python
-
 # instantiate nearest neighbors logic
 image_neighbors = NearestNeighbors(n_neighbors = search_results_n, metric = 'cosine')
 
@@ -400,7 +385,6 @@ image_distances = list(image_distances[0])
 
 # get list of filenames for search results
 search_result_files = [filename_store[i] for i in image_indices]
-
 ```
 
 <br>
@@ -411,7 +395,6 @@ We now have all of the information about the eight most similar images to our se
 We plot them in order from most similar to least similar, and include the cosine distance score for reference (smaller is closer or more similar).
 
 ```python
-
 # plot search results
 plt.figure(figsize=(20,15))
 for counter, result_file in enumerate(search_result_files):    
@@ -422,18 +405,17 @@ for counter, result_file in enumerate(search_result_files):
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
 plt.show()
-
 ```
 <br>
 The search image and search results are below:
 
 **Search Image**
 <br>
-![alt text](/img/posts/search-engine-search1.jpg "Search 1: Search Image")
+    ![alt text](/img/posts/search-engine-search1.jpg "Search 1: Search Image")
 <br>
 <br>
 **Search Results**
-![alt text](/img/posts/search-engine-search1-results.png "Search 1: Search Results")
+    ![alt text](/img/posts/search-engine-search1-results.png "Search 1: Search Results")
 
 <br>
 Very impressive results! From the 300 base-set images, these are the eight deemed to be *most similar*!
@@ -443,11 +425,11 @@ Let's take a look at a second search image...
 
 **Search Image**
 <br>
-![alt text](/img/posts/search-engine-search2.jpg "Search 2: Search Image")
+    ![alt text](/img/posts/search-engine-search2.jpg "Search 2: Search Image")
 <br>
 <br>
 **Search Results**
-![alt text](/img/posts/search-engine-search2-results.png "Search 2: Search Results")
+    ![alt text](/img/posts/search-engine-search2-results.png "Search 2: Search Results")
 
 <br>
 Again, these have come out really well - the features from VGG16 combined with Cosine Similarity have done a great job!
@@ -471,16 +453,3 @@ We only looked at Cosine Similarity here - it would be interesting to investigat
 It would be beneficial to come up with a way to quantify the quality of the search results. This could come from customer feedback or from click-through rates on the site.
 
 Finally, here we utilized VGG16 - it would be worthwhile to test other available pre-trained networks, such as ResNet, Inception, and DenseNet networks, to see how they perform.
-
-
-
-
-
-
-
-
-
-
-
-
-
