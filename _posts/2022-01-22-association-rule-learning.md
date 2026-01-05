@@ -389,7 +389,6 @@ ___
 
 As this was first and foremost an exploratory project, we will take back the results to the client Category Managers and discuss the results, our views on how these insights can be actioned best, and any considerations that need to be taken into account when interpreting.
 
-From there we will recommend applying this same logic to all other categories, as well as potentially across the full-product range.
+From there, we will recommend applying this same logic to all other categories as well as potentially across the full-product range.
 
-We will also propose the build of the "Keyword Search Engine" which will help Category Managers extract and utilize the insights held within the data.
-
+We will also propose the build of the "Keyword Search Engine," which will help Category Managers extract and utilize the insights held within the data.
