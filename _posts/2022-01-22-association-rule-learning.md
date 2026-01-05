@@ -349,7 +349,7 @@ With the data now stored as a DataFrame, we will also go back to the client with
 
 An example of how this might work would be to test a hypothesis around New Zealand wines.
 
-The code below uses a string function to pull back all rows in the DataFrame where *product1* contains the words "New Zealand"
+The code below uses a string function to pull back all rows in the DataFrame where *product1* contains the words "New Zealand."
 
 ```python
 # search based upon text
@@ -392,3 +392,4 @@ As this was first and foremost an exploratory project, we will take back the res
 From there we will recommend applying this same logic to all other categories, as well as potentially across the full-product range.
 
 We will also propose the build of the "Keyword Search Engine" which will help Category Managers extract and utilize the insights held within the data.
+
