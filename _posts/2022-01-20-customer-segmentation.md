@@ -39,27 +39,27 @@ They have asked us to use data and Machine Learning to help segment their custom
 <br>
 ### Actions <a name="overview-actions"></a>
 
-We first needed to compile the necessary data from sevaral tables in the database, namely the *transactions* table and the *product_areas* table. We join together the relevant information using Pandas and then aggregate the transactional data across product areas, from the most recent six month to a customer level. The final data for clustering is: for each customer, the percentage of sales allocated to each product area.
+We first needed to compile the necessary data from sevaral tables in the database, namely the *transactions* table and the *product_areas* table. We joined together the relevant information using Pandas and then aggregated the transactional data across product areas, from the most recent six month to a customer level. The final data for clustering was for each customer, the percentage of sales allocated to each product area.
 
-As a starting point, we test and apply k-means clustering for this task. We need to apply some data pre-processing, most importantly feature scaling to ensure all variables exist on the same scale - a very important consideration for distance-based algorithms such as k-means.
+As a starting point, we tested and applied k-means clustering for this task. We needed to apply some data pre-processing, most importantly feature scaling to ensure all variables exist on the same scale - a very important consideration for distance-based algorithms such as k-means.
 
-As k-means is an *unsupervised learning* approach (in other words, there are no labels), we use a process known as *Within Cluster Sum of Squares (WCSS)* to understand what a "good" number of clusters or segments is.
+As k-means is an *unsupervised learning* approach (in other words, there are no labels), we used a process known as *Within Cluster Sum of Squares (WCSS)* to understand what a "good" number of clusters or segments is.
 
-Based upon this, we apply the k-means algorithm onto the product area data, append the clusters to our customer base, and then profile the resulting customer segments to understand what the differentiating factors are!
+Based upon this, we applied the k-means algorithm onto the product area data, appended the clusters to our customer base, and then profiled the resulting customer segments to understand what the differentiating factors are!
 <br>
 <br>
 
 ### Results <a name="overview-results"></a>
 
-Based upon iterative testing using WCSS, we settle on a customer segmentation with three clusters. These clusters range in size, with Cluster 0 accounting for 73.6% of the customer base, Cluster 2 accounting for 14.6%, and Cluster 1 accounting for 11.8%.
+Based upon iterative testing using WCSS, we settled on a customer segmentation with three clusters. These clusters ranged significantly in size, with Cluster 0 accounting for 73.6% of the customer base, Cluster 2 accounting for 14.6%, and Cluster 1 accounting for 11.8%.
 
-There are some extremely interesting findings from profiling the clusters.
+There were some extremely interesting findings from profiling the clusters.
 
-For *Cluster 0*, we see a significant portion of spend being allocated to each of the product areas - showing customers without any particular dietary preference.  
+For *Cluster 0*, we saw a significant portion of spending allocated to each of the product areas - showing customers without any particular dietary preference.  
 
-For *Cluster 1*, we see quite high proportions of spending allocated to Fruit & Vegetables, but very little to the Dairy & Meat product areas. It could be hypothesized that these customers are following a vegan diet.  
+For *Cluster 1*, however, we saw quite high proportions of spending allocated to Fruit & Vegetables, but very little to the Dairy & Meat product areas. It could be hypothesized that these customers are following a vegan diet.
 
-Finally, customers in *Cluster 2* spent significant portions within Dairy, Fruit & Vegetables, but very little in the Meat product area - so similarly, we could make an early hypothesis that these customers are following a vegetarian diet.
+Finally, customers in *Cluster 2* spent significant portions within Dairy, Fruit, and Vegetables, but very little in the Meat product area - so similarly, we could make an early hypothesis that these customers are following a vegetarian diet.
 
 To help embed this segmentation into the business, we have proposed to call this the "You Are What You Eat" segmentation.
 
@@ -67,11 +67,11 @@ To help embed this segmentation into the business, we have proposed to call this
 <br>
 ### Growth/Next Steps <a name="overview-growth"></a>
 
-It would be interesting to run this clustering/segmentation at a lower level of product areas - so rather than just the four areas of Meat, Dairy, Fruit, Vegetables, we cluster spending across the sub-categories *below* those categories. This would allow us to create more specific clusters and thereby get an even more granular understanding of dietary preferences within the customer base.
+It would be interesting to run this clustering/segmentation at a lower level of product areas - so rather than just the four areas of Meat, Dairy, Fruit, Vegetables, we would cluster spending across the sub-categories *below* those categories. This would allow us to create more specific clusters and thereby get an even more granular understanding of dietary preferences within the customer base.
 
 Here we've just focused on variables that are linked directly to sales - it could be interesting to also include customer metrics such as distance to store, gender, etc. to give an even more well-rounded customer segmentation.
 
-It would be useful to test other clustering approaches such as hierarchical clustering or DBSCAN to compare the results.
+It would also be useful to test other clustering approaches such as hierarchical clustering or DBSCAN to compare the results.
 <br>
 <br>
 
@@ -353,5 +353,6 @@ It would be interesting to run this clustering/segmentation analysis at a lower 
 Here we've just focused on variables that are linked directly to sales - it could be interesting to also include customer metrics such as distance to store, gender, etc., to give a even more well-rounded customer segmentation.
 
 It would also be useful to test other clustering approaches, such as hierarchical clustering or DBSCAN to compare the results.
+
 
 
