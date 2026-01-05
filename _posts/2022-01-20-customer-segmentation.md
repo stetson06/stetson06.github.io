@@ -2,7 +2,7 @@
 layout: post
 title: The "You Are What You Eat" Customer Segmentation
 image: "/posts/clustering-title-img.png"
-tags: [Customer Segmentation, Machine Learning, K-Means, Clustering, Python]
+tags: [Customer Segmentation, Machine Learning, Unsupervised Learning, K-Means, Clustering, Python]
 ---
 
 In this project, we use k-means clustering to segment a customer base in order to increase business understanding and enhance the relevancy of targeted messaging and customer communications.
@@ -353,4 +353,5 @@ It would be interesting to run this clustering/segmentation analysis at a lower 
 Here we've just focused on variables that are linked directly to sales - it could be interesting to also include customer metrics such as distance to store, gender, etc., to give a even more well-rounded customer segmentation.
 
 It would also be useful to test other clustering approaches, such as hierarchical clustering or DBSCAN to compare the results.
+
 
